@@ -1,6 +1,6 @@
-import React from "react";
+import React from "react"
 //assets
-import Logo from "../../assets/logo-with-text.svg";
+import Logo from "../../assets/logo-with-text.svg"
 //component
 
 //framer-motion
@@ -8,44 +8,33 @@ import {
   motion,
   useMotionValueEvent,
   useScroll,
-} from "framer-motion";
-
-//hook
-import useCheckScrollDirection, {
-  EnumDirection,
-} from "../../hook/useCheckScrollDirection";
+} from "framer-motion"
 
 //mocks
-import { MainHeaderContextProvider } from "../../context/MainHeaderContext";
-import { useNavigate } from "react-router-dom";
-import { PathRouter } from "../../constant/path.router";
-import ElementNavigation from "./component/ElementNavigation";
+import { MainHeaderContextProvider } from "../../context/MainHeaderContext"
+import { useNavigate } from "react-router-dom"
+import { PathRouter } from "../../constant/path.router"
+import ElementNavigation from "./component/ElementNavigation"
 
 export default function MainHeader() {
   //useState
   const [positionHeader, setPositionHeader] =
-    React.useState("0px");
+    React.useState("0px")
   //hook
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const { scrollY } = useScroll();
-  const { direction } = useCheckScrollDirection();
-
+  const { scrollY } = useScroll()
   useMotionValueEvent(
     scrollY,
     "change",
     (latest) => {
-      if (latest > 500) {
-        if (direction === EnumDirection.UP) {
-          setPositionHeader("0px");
-        } else {
-          setPositionHeader("-200px");
-        }
+      if (latest > 200) {
+        setPositionHeader("-80px")
       } else {
-        setPositionHeader("0px");
+        setPositionHeader("0px")
       }
     },
-  );
+  )
 
   return (
     <MainHeaderContextProvider>
@@ -54,19 +43,36 @@ export default function MainHeader() {
         transition={{ duration: 0.2 }}
         className="fixed top-0 z-50 flex w-full flex-col items-center justify-center bg-white"
       >
-        <div className="py-4">
+        <div
+          className="py-4"
+          onClick={() =>
+            navigate(PathRouter.HOME)
+          }
+        >
           <img
             src={Logo}
             className="h-[50px] cursor-pointer object-cover"
           />
         </div>
         <div className="flex h-[50px] w-full items-center justify-between px-44">
-          <ElementNavigation title="TRANG CHỦ" />
-          <ElementNavigation title="GIỚI THIỆU" />
-          <ElementNavigation title="SẢN PHẨM" />
-          <ElementNavigation title="CẨM NANG" />
+          <ElementNavigation
+            title="TRANG CHỦ"
+            path={PathRouter.HOME}
+          />
+          <ElementNavigation
+            title="GIỚI THIỆU"
+            path={PathRouter.ABOUT}
+          />
+          <ElementNavigation
+            title="SẢN PHẨM"
+            path={PathRouter.PRODUCT}
+          />
+          <ElementNavigation
+            title="CẨM NANG"
+            path={PathRouter.HANDBOOK}
+          />
         </div>
       </motion.div>
     </MainHeaderContextProvider>
-  );
+  )
 }

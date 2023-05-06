@@ -1,13 +1,16 @@
-import React from "react";
+import React from "react"
 
 //component
-import MainFooter from "../../components/footer/MainFooter";
-import { useNavigate } from "react-router-dom";
-import { ProductMocks } from "../../mocks/product";
-import ProductList from "../../components/product/ProductList";
+import MainFooter from "../../components/footer/MainFooter"
+import { useNavigate } from "react-router-dom"
+import { ProductMocks } from "../../mocks/product"
+import ProductList from "../../components/product/ProductList"
 
 export default function HomePages() {
-  const navigate = useNavigate();
+  const productRef =
+    React.useRef<HTMLDivElement>(null)
+
+  const navigate = useNavigate()
   //useEffect
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);
@@ -15,7 +18,6 @@ export default function HomePages() {
   return (
     <div className="flex flex-col items-center bg-gray-100/50">
       <div className="mb-8 flex w-full flex-col items-center">
-        <div className="mt-[130px]" />
         <div className="flex h-[600px] w-[100%] flex-col items-center justify-center bg-hero bg-cover">
           <p className="font-serif text-[64px] font-bold text-[#841206]">
             Nâng Tầm Sức Khỏe
@@ -39,7 +41,16 @@ export default function HomePages() {
               mạnh, trẻ hóa tế bào, da trắng mịn,
               hồng hào và cải thiện trí nhớ.
             </p>
-            <div className="my-8 flex w-[200px] cursor-pointer items-center justify-center rounded-[50px] bg-[#d4aa5f] p-4 font-bold text-[#841206] duration-200 hover:bg-white/90 hover:text-[#d4aa5f]">
+            <div
+              className="my-8 flex w-[200px] cursor-pointer items-center justify-center rounded-[50px] bg-[#d4aa5f] p-4 font-bold text-[#841206] duration-200 hover:bg-white/90 hover:text-[#d4aa5f]"
+              onClick={() =>
+                productRef?.current?.scrollIntoView(
+                  {
+                    behavior: "smooth",
+                  },
+                )
+              }
+            >
               XEM SẢN PHẨM
             </div>
           </div>
@@ -62,11 +73,23 @@ export default function HomePages() {
               (đất, vôi,…) và một số lông kim
               (lông nhỏ khó nhặt).
             </p>
-            <div className="my-8 flex w-[200px] cursor-pointer items-center justify-center rounded-[50px] bg-[#841206] p-4 font-bold text-[#d4aa5f] duration-300 hover:bg-white/90 hover:text-[#841206]">
+            <div
+              className="my-8 flex w-[200px] cursor-pointer items-center justify-center rounded-[50px] bg-[#841206] p-4 font-bold text-[#d4aa5f] duration-300 hover:bg-white/90 hover:text-[#841206]"
+              onClick={() =>
+                productRef?.current?.scrollIntoView(
+                  {
+                    behavior: "smooth",
+                  },
+                )
+              }
+            >
               XEM SẢN PHẨM
             </div>
           </div>
-          <div className="w-full bg-[#841206] p-8">
+          <div
+            ref={productRef}
+            className="w-full bg-[#841206] p-8"
+          >
             <div className="flex w-full flex-col items-center justify-center">
               <p className="z-10 font-serif text-[32px] font-bold text-[#d4aa5f]">
                 Yến Sào Sạch & Chất Lượng Cao
@@ -77,6 +100,7 @@ export default function HomePages() {
               {ProductMocks.map(
                 (product, index) => (
                   <ProductList
+                    key={index}
                     product={product}
                   />
                 ),
@@ -88,8 +112,6 @@ export default function HomePages() {
           </div>
         </div>
       </div>
-
-      <MainFooter />
     </div>
-  );
+  )
 }

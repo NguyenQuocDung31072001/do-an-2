@@ -1,17 +1,17 @@
-import React from "react";
-import { ProductMocks } from "../../mocks/product";
-import ProductImage from "../../assets/intro-1.jpg";
-import ProductRating from "../ProductRating";
-import { convertToVNPrice } from "../../utils/string";
+import React from "react"
+import { ProductMocks } from "../../mocks/product"
+import ProductImage from "../../assets/intro-1.jpg"
+import ProductRating from "../ProductRating"
+import { convertToVNPrice } from "../../utils/string"
 
 interface IProps {
-  product: any;
+  product: any
 }
 export default function ProductList({
   product,
 }: IProps) {
   return (
-    <div className="w-[450px] overflow-hidden rounded-[10px] bg-white">
+    <div className="w-[420px] overflow-hidden rounded-[10px] bg-white">
       <div className="overflow-hidden">
         <img
           src={ProductImage}
@@ -56,5 +56,5 @@ export default function ProductList({
         {product.description}
       </p>
     </div>
-  );
+  )
 }

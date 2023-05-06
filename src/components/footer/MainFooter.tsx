@@ -1,5 +1,5 @@
-import React from "react";
-import Logo from "../../assets/logo-with-text.svg";
+import React from "react"
+import Logo from "../../assets/logo-with-text.svg"
 
 export default function MainFooter() {
   return (
@@ -73,5 +73,5 @@ export default function MainFooter() {
       </div>
       {/* <div className="h-[1px] w-full bg-gray-300"></div> */}
     </div>
-  );
+  )
 }

@@ -1,19 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import React from "react"
+import {
+  Link,
+  useLocation,
+} from "react-router-dom"
+import { motion } from "framer-motion"
 
 interface IProps {
-  title: string;
+  title: string
+  path: string
 }
 export default function ElementNavigation({
   title,
+  path,
 }: IProps) {
-  const [isEnter, setIsEnter] =
-    React.useState<boolean>(false);
+  const location = useLocation()
 
-  const isSelected = isEnter;
+  const [isEnter, setIsEnter] =
+    React.useState<boolean>(false)
+
+  const isSelected =
+    isEnter || location.pathname === path
   return (
-    <Link to="">
+    <Link to={path}>
       <div
         className="flex w-[150px] translate-y-[10px] flex-col items-center justify-center"
         onMouseEnter={() => setIsEnter(true)}
@@ -55,5 +63,5 @@ export default function ElementNavigation({
         ></motion.div>
       </div>
     </Link>
-  );
+  )
 }
