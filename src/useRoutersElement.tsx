@@ -14,6 +14,7 @@ import MainFooter from "./components/footer/MainFooter"
 import { PathRouter } from "./constant/path.router"
 import ProductPages from "./pages/product/ProductPages"
 import HandbookPages from "./pages/handbook/HandbookPages"
+import ProductDetail from "./pages/detail/ProductDetail"
 //components
 
 function ParentComponent() {
@@ -48,6 +49,10 @@ export default function useRoutersElement() {
         {
           path: PathRouter.HANDBOOK,
           element: <HandbookPages />,
+        },
+        {
+          path: PathRouter.DETAIL,
+          element: <ProductDetail />,
         },
       ],
     },

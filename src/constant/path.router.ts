@@ -3,4 +3,5 @@ export const PathRouter = {
   ABOUT: "/about",
   PRODUCT: "/product",
   HANDBOOK: "/handbook",
+  DETAIL: "/detail",
 }

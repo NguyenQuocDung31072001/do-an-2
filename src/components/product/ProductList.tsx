@@ -1,8 +1,9 @@
 import React from "react"
-import { ProductMocks } from "../../mocks/product"
 import ProductImage from "../../assets/intro-1.jpg"
 import ProductRating from "../ProductRating"
 import { convertToVNPrice } from "../../utils/string"
+import { useNavigate } from "react-router-dom"
+import { PathRouter } from "../../constant/path.router"
 
 interface IProps {
   product: any
@@ -10,16 +11,28 @@ interface IProps {
 export default function ProductList({
   product,
 }: IProps) {
+  const navigate = useNavigate()
+
   return (
     <div className="w-[420px] overflow-hidden rounded-[10px] bg-white">
-      <div className="overflow-hidden">
+      <div
+        className="overflow-hidden"
+        onClick={() =>
+          navigate(PathRouter.DETAIL)
+        }
+      >
         <img
           src={ProductImage}
           alt=""
           className="cursor-pointer object-cover duration-200 hover:scale-110"
         />
       </div>
-      <p className="mt-4 px-2 font-bold">
+      <p
+        className="mt-4 cursor-pointer px-2 font-bold"
+        onClick={() =>
+          navigate(PathRouter.DETAIL)
+        }
+      >
         {product.name}
       </p>
       <div className="flex p-2">
@@ -40,7 +53,7 @@ export default function ProductList({
         )}
       </div>
       <div className="flex px-2">
-        <p className="text-[16px] font-bold text-[#841206]">
+        <p className="text-[16px] font-bold text-primaryRed">
           {convertToVNPrice(
             (product.price *
               (100 - product.sale)) /

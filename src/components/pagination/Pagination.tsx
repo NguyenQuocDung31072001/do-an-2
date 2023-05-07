@@ -33,7 +33,7 @@ export default function Pagination({
               key={value}
               className={`cursor-pointer border-[1px] border-l-0 border-gray-300 py-2 px-4 ${
                 isSelect
-                  ? "bg-[#841206] text-white"
+                  ? "bg-primaryRed text-white"
                   : "bg-white hover:bg-gray-100"
               }`}
               onClick={() => setPage(value)}
@@ -52,7 +52,7 @@ export default function Pagination({
         className={`flex items-center justify-center rounded-tl-[10px] rounded-bl-[10px] border-[1px] border-gray-300 bg-white py-2 px-4 ${
           page === 1
             ? "text-gray-400"
-            : "cursor-pointer text-[#841206] hover:bg-gray-100"
+            : "cursor-pointer text-primaryRed hover:bg-gray-100"
         }`}
         onClick={() => {
           if (page === 1) return
@@ -76,7 +76,7 @@ export default function Pagination({
           className={`h-4 w-4 ${
             page === 1
               ? "text-gray-500"
-              : "text-[#841206]"
+              : "text-primaryRed"
           } `}
         />
       </div>
@@ -144,7 +144,7 @@ export default function Pagination({
           className={`h-4 w-4 ${
             page === pageCount
               ? "text-gray-500"
-              : "text-[#841206]"
+              : "text-primaryRed"
           } `}
         />
       </div>
@@ -152,7 +152,7 @@ export default function Pagination({
         className={`flex items-center justify-center rounded-tr-[10px] rounded-br-[10px] border-[1px] border-l-0 border-gray-300 bg-white py-2 px-4 ${
           page === pageCount
             ? "text-gray-400"
-            : "cursor-pointer text-[#841206] hover:bg-gray-100"
+            : "cursor-pointer text-primaryRed hover:bg-gray-100"
         }`}
         onClick={() => {
           if (page === pageCount) return

@@ -9,18 +9,18 @@ export default function HandbookPages() {
   return (
     <div>
       <div className="z-10 flex w-full">
-        <div className="z-10 h-[600px] w-[50%] bg-[#841206] bg-pattern bg-cover bg-center px-16 py-36">
-          <p className="font-serif text-[48px] font-bold text-[#d4aa5f]">
+        <div className="z-10 h-[600px] w-[50%] bg-primaryRed bg-pattern bg-cover bg-center px-16 py-36">
+          <p className="font-serif text-[48px] font-bold text-primaryYellow">
             Cẩm nang
           </p>
-          <div className="h-[8px] w-[100px] bg-[#d4aa5f]"></div>
+          <div className="h-[8px] w-[100px] bg-primaryYellow"></div>
           <p className="py-8 text-white/50 ">
             Chia sẻ cách sống khỏe giúp các bạn có
             thể tham khảo và nắm bắt rõ hơn để có
             một sức khỏe tuyệt vời
           </p>
           <div
-            className="flex w-[250px] cursor-pointer items-center justify-center rounded-[50px] bg-[#d4aa5f] p-4 font-bold text-[#841206] duration-200 hover:bg-white/90 hover:text-[#d4aa5f]"
+            className="flex w-[250px] cursor-pointer items-center justify-center rounded-[50px] bg-primaryYellow p-4 font-bold text-primaryRed duration-200 hover:bg-white/90 hover:text-primaryYellow"
             onClick={() =>
               ref?.current?.scrollIntoView({
                 behavior: "smooth",
