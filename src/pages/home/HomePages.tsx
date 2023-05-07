@@ -5,16 +5,16 @@ import MainFooter from "../../components/footer/MainFooter"
 import { useNavigate } from "react-router-dom"
 import { ProductMocks } from "../../mocks/product"
 import ProductList from "../../components/product/ProductList"
+import { PathRouter } from "../../constant/path.router"
 
 export default function HomePages() {
   const productRef =
     React.useRef<HTMLDivElement>(null)
 
   const navigate = useNavigate()
-  //useEffect
-  // React.useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div className="flex flex-col items-center bg-gray-100/50">
       <div className="mb-8 flex w-full flex-col items-center">
@@ -106,7 +106,12 @@ export default function HomePages() {
                 ),
               )}
             </div>
-            <div className="my-8 flex w-full cursor-pointer items-center justify-center rounded-[20px] bg-[#d4aa5f] p-4 font-bold text-[#841206] duration-200 hover:bg-white/90 hover:text-[#d4aa5f]">
+            <div
+              className="my-8 flex w-full cursor-pointer items-center justify-center rounded-[20px] bg-[#d4aa5f] p-4 font-bold text-[#841206] duration-200 hover:bg-white/90 hover:text-[#d4aa5f]"
+              onClick={() =>
+                navigate(PathRouter.PRODUCT)
+              }
+            >
               XEM SẢN PHẨM
             </div>
           </div>

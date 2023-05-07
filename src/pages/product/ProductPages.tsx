@@ -2,10 +2,13 @@ import React from "react"
 import CategoryShow from "./component/CategoryShow"
 import { ProductMocks } from "../../mocks/product"
 import ProductList from "../../components/product/ProductList"
+import Pagination from "../../components/pagination/Pagination"
 
 export default function ProductPages() {
   const ref = React.useRef<HTMLDivElement>(null)
-
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div>
       <div className="z-10 flex w-full">
@@ -44,6 +47,9 @@ export default function ProductPages() {
               product={product}
             />
           ))}
+        </div>
+        <div className="flex w-full justify-center py-8">
+          <Pagination total={15} />
         </div>
       </div>
     </div>

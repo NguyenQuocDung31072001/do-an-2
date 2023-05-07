@@ -3,7 +3,9 @@ import FeatureImage from "../../assets/handbook/featured-image.jpg"
 
 export default function HandbookPages() {
   const ref = React.useRef<HTMLDivElement>(null)
-
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div>
       <div className="z-10 flex w-full">

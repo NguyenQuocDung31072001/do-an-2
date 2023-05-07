@@ -3,7 +3,9 @@ import React from "react"
 export default function IntroducePages() {
   const aboutRef =
     React.useRef<HTMLDivElement>(null)
-
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div>
       <div className="flex w-full">
