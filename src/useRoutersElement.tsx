@@ -15,6 +15,7 @@ import { PathRouter } from "./constant/path.router"
 import ProductPages from "./pages/product/ProductPages"
 import HandbookPages from "./pages/handbook/HandbookPages"
 import ProductDetail from "./pages/detail/ProductDetail"
+import HandbookView from "./pages/handbookView/HandbookView"
 //components
 
 function ParentComponent() {
@@ -49,6 +50,10 @@ export default function useRoutersElement() {
         {
           path: PathRouter.HANDBOOK,
           element: <HandbookPages />,
+        },
+        {
+          path: PathRouter.HANDBOOK_VIEW,
+          element: <HandbookView />,
         },
         {
           path: PathRouter.DETAIL,
