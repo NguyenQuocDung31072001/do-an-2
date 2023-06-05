@@ -3,7 +3,6 @@ import { ProductMocks } from "../../../mocks/product"
 import ProductRating from "../../../components/ProductRating"
 import { convertToVNPrice } from "../../../utils/string"
 import QuantityProductManegement from "../../../components/quantity/QuantityProductManegement"
-import CartIcon from "../../../icon/CartIcon"
 import CartIconFilled from "../../../icon/CartIconFilled"
 
 export default function ProductDetailInfo() {

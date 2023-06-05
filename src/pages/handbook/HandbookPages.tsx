@@ -1,8 +1,11 @@
 import React from "react"
 import FeatureImage from "../../assets/handbook/featured-image.jpg"
+import { useNavigate } from "react-router-dom"
+import { PathRouter } from "../../constant/path.router"
 
 export default function HandbookPages() {
   const ref = React.useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -44,15 +47,29 @@ export default function HandbookPages() {
                 key={index}
                 className="my-4 w-[420px] overflow-hidden rounded-[10px] bg-white"
               >
-                <div className="overflow-hidden">
+                <div
+                  className="overflow-hidden"
+                  onClick={() =>
+                    navigate(
+                      PathRouter.HANDBOOK_VIEW,
+                    )
+                  }
+                >
                   <img
                     src={FeatureImage}
                     alt=""
                     className="cursor-pointer object-cover duration-200 hover:scale-110"
                   />
                 </div>
-                <p className="mt-4 px-2 font-bold">
-                  Cách ăn yến sào tốt cho sức khỏe{" "}
+                <p
+                  className="mt-4 cursor-pointer px-2 font-bold"
+                  onClick={() =>
+                    navigate(
+                      PathRouter.HANDBOOK_VIEW,
+                    )
+                  }
+                >
+                  Cách ăn yến sào tốt cho sức khỏe
                 </p>
                 <p className="mb-4 px-2 text-[14px] text-black/80 line-clamp-3">
                   Những tác dụng của yến sào có

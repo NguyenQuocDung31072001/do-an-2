@@ -4,6 +4,9 @@ import View1 from "../../assets/handbook/view1.png"
 import View2 from "../../assets/handbook/view2.png"
 
 export default function HandbookView() {
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const renderNomalText = (text: string) => {
     return (
       <p className="py-2 text-[18px] antialiased">

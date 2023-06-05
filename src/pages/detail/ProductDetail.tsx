@@ -1,15 +1,17 @@
-import React from "react"
-import ProductImage from "../../assets/intro-1.jpg"
-import { convertToVNPrice } from "../../utils/string"
-import { ProductMocks } from "../../mocks/product"
-import ProductRating from "../../components/ProductRating"
 import ProductInfo from "./component/ProductInfo"
+import DetailInfomation from "./component/DetailInfomation"
+import CommentAndRating from "./component/CommentAndRating"
+import React from "react"
 
 export default function ProductDetail() {
-  const product = ProductMocks[1]
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div className="bg-primaryRed px-16 py-8">
       <ProductInfo />
+      <DetailInfomation />
+      <CommentAndRating />
     </div>
   )
 }
