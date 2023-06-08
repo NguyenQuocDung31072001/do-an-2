@@ -72,7 +72,7 @@ export default function CommentAndRating() {
       </div>
       <div className="my-8 h-[1px] w-full bg-gray-200" />
       <div className="flex w-full justify-center">
-        <Pagination total={6} />
+        <Pagination total={3} />
       </div>
     </div>
   )

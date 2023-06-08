@@ -54,6 +54,11 @@ export default function MainHeader() {
             className="h-[50px] cursor-pointer object-cover"
           />
         </div>
+        <div className="absolute right-20 top-5">
+          <i className="fas fa-search mx-1 cursor-pointer rounded-[50%] bg-gray-100 p-3 text-[16px] font-bold text-primaryRed duration-500 hover:bg-primaryRed hover:text-primaryYellow"></i>
+          <i className="fas fa-sign-in-alt mx-1 cursor-pointer rounded-[50%] bg-primaryYellow p-3 text-[16px] font-bold text-primaryRed duration-500 hover:bg-primaryRed hover:text-primaryYellow"></i>
+          <i className="fas fa-shopping-cart mx-1 cursor-pointer rounded-[50%] bg-primaryRed p-3 text-[16px] font-bold text-primaryYellow duration-500 hover:bg-primaryYellow hover:text-primaryRed"></i>
+        </div>
         <div className="flex h-[50px] w-full items-center justify-between px-44">
           <ElementNavigation
             title="TRANG CHỦ"
