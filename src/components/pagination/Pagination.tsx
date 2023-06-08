@@ -2,6 +2,8 @@ import React from "react"
 import { Config } from "../../config"
 import ChevronDoubleLeftIcon from "../../icon/chevron/ChevronDoubleLeftIcon"
 import ChevronDoubleRightIcon from "../../icon/chevron/ChevronDoubleRightIcon"
+import ChevronLeftIcon from "../../icon/chevron/ChevronLeftIcon"
+import ChevronRightIcon from "../../icon/chevron/ChevronRightIcon"
 interface IProps {
   total: number
 }
@@ -45,7 +47,53 @@ export default function Pagination({
       </div>
     )
   }
-
+  if (pageCount <= Config.NUMBER_PAGINATION + 1) {
+    return (
+      <div className="flex">
+        <div
+          className={`flex items-center justify-center border-[1px] border-gray-300 bg-white py-2 px-4 ${
+            page === 1
+              ? ""
+              : "cursor-pointer hover:bg-gray-100"
+          }`}
+          onClick={() => {
+            if (page === 1) return
+            setPage(page - 1)
+          }}
+        >
+          <ChevronLeftIcon
+            className={`h-4 w-4 ${
+              page === 1
+                ? "text-gray-500"
+                : "text-primaryRed"
+            } `}
+          />
+        </div>
+        <div className="flex items-center">
+          {renderNumberPagination(1, pageCount)}
+        </div>
+        <div
+          className={`flex items-center justify-center border-[1px] border-l-0 border-gray-300 bg-white py-2 px-4 ${
+            page === pageCount
+              ? ""
+              : "cursor-pointer hover:bg-gray-100"
+          }`}
+          onClick={() => {
+            if (page === pageCount) return
+            setPage(page + 1)
+          }}
+        >
+          <ChevronRightIcon
+            className={`h-4 w-4 ${
+              page === pageCount
+                ? "text-gray-500"
+                : "text-primaryRed"
+            } `}
+          />
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="flex">
       <div
