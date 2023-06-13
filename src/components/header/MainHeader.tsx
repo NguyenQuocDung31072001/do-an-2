@@ -15,6 +15,7 @@ import { MainHeaderContextProvider } from "../../context/MainHeaderContext"
 import { useNavigate } from "react-router-dom"
 import { PathRouter } from "../../constant/path.router"
 import ElementNavigation from "./component/ElementNavigation"
+import SearchHeader from "./component/SearchHeader"
 
 export default function MainHeader() {
   //useState
@@ -41,7 +42,7 @@ export default function MainHeader() {
       <motion.div
         animate={{ translateY: positionHeader }}
         transition={{ duration: 0.2 }}
-        className="fixed top-0 z-50 flex w-full flex-col items-center justify-center bg-white"
+        className="fixed top-0 z-40 flex w-full flex-col items-center justify-center bg-white"
       >
         <div
           className="py-4"
@@ -54,9 +55,9 @@ export default function MainHeader() {
             className="h-[50px] cursor-pointer object-cover"
           />
         </div>
-        <div className="absolute right-20 top-5">
-          <i className="fas fa-search mx-1 cursor-pointer rounded-[50%] bg-gray-100 p-3 text-[16px] font-bold text-primaryRed duration-500 hover:bg-primaryRed hover:text-primaryYellow"></i>
-          <i className="fas fa-sign-in-alt mx-1 cursor-pointer rounded-[50%] bg-primaryYellow p-3 text-[16px] font-bold text-primaryRed duration-500 hover:bg-primaryRed hover:text-primaryYellow"></i>
+        <div className="absolute right-20 top-5 flex ">
+          <SearchHeader />
+          <i className="fas fa-sign-in-alt h over:text-primaryYellow mx-1 cursor-pointer rounded-[50%] bg-primaryYellow p-3 text-[16px] font-bold text-primaryRed duration-500  hover:bg-primaryRed"></i>
           <i className="fas fa-shopping-cart mx-1 cursor-pointer rounded-[50%] bg-primaryRed p-3 text-[16px] font-bold text-primaryYellow duration-500 hover:bg-primaryYellow hover:text-primaryRed"></i>
         </div>
         <div className="flex h-[50px] w-full items-center justify-between px-44">
