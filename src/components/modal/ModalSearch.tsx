@@ -8,7 +8,7 @@ interface IPropsModalFade {
     React.SetStateAction<boolean>
   >
 }
-export default function ModalFade({
+export default function ModalSearch({
   open,
   setOpen,
 }: IPropsModalFade) {
@@ -71,9 +71,17 @@ export default function ModalFade({
       ></div>
       <motion.div
         className="fixed top-[50%] left-[50%] z-50 translate-x-[-50%] translate-y-[-50%] rounded-[2px] bg-white bg-pattern bg-contain py-4 px-2"
-        initial={{ y: -300, x: "-50%" }}
-        animate={{ y: "-50%" }}
-        exit={{ y: "-50%", x: "-50%" }}
+        initial={{
+          y: -300,
+          x: "-50%",
+          opacity: 0,
+        }}
+        animate={{ y: "-50%", opacity: 1 }}
+        exit={{
+          y: "-50%",
+          x: "-50%",
+          opacity: 0,
+        }}
       >
         {CancelIcon}
         {renderHeader}

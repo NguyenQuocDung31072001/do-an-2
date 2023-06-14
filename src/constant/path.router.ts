@@ -5,4 +5,6 @@ export const PathRouter = {
   HANDBOOK: "/handbook",
   HANDBOOK_VIEW: "/handbook/view",
   DETAIL: "/detail",
+  LOGIN: "/auth/login",
+  REGISTER: "/auth/register",
 }

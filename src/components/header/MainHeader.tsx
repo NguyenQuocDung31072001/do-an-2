@@ -57,7 +57,12 @@ export default function MainHeader() {
         </div>
         <div className="absolute right-20 top-5 flex ">
           <SearchHeader />
-          <i className="fas fa-sign-in-alt h over:text-primaryYellow mx-1 cursor-pointer rounded-[50%] bg-primaryYellow p-3 text-[16px] font-bold text-primaryRed duration-500  hover:bg-primaryRed"></i>
+          <i
+            className="fas fa-sign-in-alt h over:text-primaryYellow mx-1 cursor-pointer rounded-[50%] bg-primaryYellow p-3 text-[16px] font-bold text-primaryRed duration-500 hover:bg-primaryRed  hover:text-primaryYellow"
+            onClick={() =>
+              navigate(PathRouter.LOGIN)
+            }
+          ></i>
           <i className="fas fa-shopping-cart mx-1 cursor-pointer rounded-[50%] bg-primaryRed p-3 text-[16px] font-bold text-primaryYellow duration-500 hover:bg-primaryYellow hover:text-primaryRed"></i>
         </div>
         <div className="flex h-[50px] w-full items-center justify-between px-44">

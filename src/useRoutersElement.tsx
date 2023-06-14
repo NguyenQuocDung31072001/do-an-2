@@ -16,6 +16,8 @@ import ProductPages from "./pages/product/ProductPages"
 import HandbookPages from "./pages/handbook/HandbookPages"
 import ProductDetail from "./pages/detail/ProductDetail"
 import HandbookView from "./pages/handbookView/HandbookView"
+import LoginPages from "./pages/auth/LoginPages"
+import RegisterPages from "./pages/auth/RegisterPages"
 //components
 
 function ParentComponent() {
@@ -58,6 +60,14 @@ export default function useRoutersElement() {
         {
           path: PathRouter.DETAIL,
           element: <ProductDetail />,
+        },
+        {
+          path: PathRouter.LOGIN,
+          element: <LoginPages />,
+        },
+        {
+          path: PathRouter.REGISTER,
+          element: <RegisterPages />,
         },
       ],
     },

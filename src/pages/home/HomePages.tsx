@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { ProductMocks } from "../../mocks/product"
 import ProductList from "../../components/product/ProductList"
 import { PathRouter } from "../../constant/path.router"
-import ModalFade from "../../components/modal/ModalFade"
+import ModalFade from "../../components/modal/ModalSearch"
 
 export default function HomePages() {
   const productRef =
