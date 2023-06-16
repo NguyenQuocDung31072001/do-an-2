@@ -1,5 +1,6 @@
 import React from "react"
 import { convertToVNPrice } from "../../utils/string"
+import CartItem from "./component/CartItem"
 
 export default function CartPages() {
   const [cartData, setCartData] = React.useState(
@@ -26,8 +27,9 @@ export default function CartPages() {
       {Array(10)
         .fill(0)
         .map((data) => (
-          <div className="h-20 w-full"></div>
+          <CartItem />
         ))}
+      <div className="h-[100px] w-full" />
       <div className="fixed bottom-0 flex w-[90%] justify-between bg-white p-4 shadow-xl">
         <span className="font-semibold text-primaryRed">
           Thành tiền :
