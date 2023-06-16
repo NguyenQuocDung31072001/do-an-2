@@ -7,4 +7,5 @@ export const PathRouter = {
   DETAIL: "/detail",
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
+  RESET_PASSWORD: "/auth/reset_password",
 }

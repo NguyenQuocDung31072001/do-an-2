@@ -18,6 +18,7 @@ import ProductDetail from "./pages/detail/ProductDetail"
 import HandbookView from "./pages/handbookView/HandbookView"
 import LoginPages from "./pages/auth/LoginPages"
 import RegisterPages from "./pages/auth/RegisterPages"
+import ResetPasswordPages from "./pages/auth/ResetPassword"
 //components
 
 function ParentComponent() {
@@ -68,6 +69,10 @@ export default function useRoutersElement() {
         {
           path: PathRouter.REGISTER,
           element: <RegisterPages />,
+        },
+        {
+          path: PathRouter.RESET_PASSWORD,
+          element: <ResetPasswordPages />,
         },
       ],
     },

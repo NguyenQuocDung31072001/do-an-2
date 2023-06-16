@@ -1,6 +1,7 @@
 import React from "react"
 import ReactDom from "react-dom"
 import { motion } from "framer-motion"
+import InputWithOutlineAndIcon from "../input/InputWithOutlineAndIcon"
 
 interface IPropsModalFade {
   open: boolean
@@ -15,6 +16,8 @@ export default function ModalSearch({
   const root = document.getElementById(
     "root",
   ) as HTMLElement
+  const [value, setValue] =
+    React.useState<string>("")
 
   if (!open) return <></>
 
@@ -49,9 +52,15 @@ export default function ModalSearch({
     </div>
   )
   const renderContent = (
-    <div className=" flex h-[100px] w-[800px] items-center overflow-hidden overflow-y-scroll overscroll-contain">
-      <input className="w-full rounded-tl-[10px] rounded-bl-[10px] border-[1px] border-gray-400 px-4 py-2 text-[16px] text-gray-600  focus:border-4 focus:border-red-300 focus:outline-none" />
-      <i className="fas fa-search cursor-pointer rounded-tr-[10px] rounded-br-[10px] border-[1px] border-gray-400 p-3 text-[16px] font-bold text-gray-500 duration-300 hover:bg-gray-400 hover:text-white"></i>
+    <div className=" flex h-[100px] w-[800px] items-center justify-center overflow-hidden overflow-y-scroll overscroll-contain">
+      <div className="flex w-[95%] justify-center">
+        <InputWithOutlineAndIcon
+          value={value}
+          setValue={setValue}
+          type="text"
+          placeholder="yến sào, yến thô ..."
+        />
+      </div>
     </div>
   )
   const renderFooter = (
