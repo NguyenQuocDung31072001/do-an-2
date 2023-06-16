@@ -63,7 +63,12 @@ export default function MainHeader() {
               navigate(PathRouter.LOGIN)
             }
           ></i>
-          <i className="fas fa-shopping-cart mx-1 cursor-pointer rounded-[50%] bg-primaryRed p-3 text-[16px] font-bold text-primaryYellow duration-500 hover:bg-primaryYellow hover:text-primaryRed"></i>
+          <i
+            className="fas fa-shopping-cart mx-1 cursor-pointer rounded-[50%] bg-primaryRed p-3 text-[16px] font-bold text-primaryYellow duration-500 hover:bg-primaryYellow hover:text-primaryRed"
+            onClick={() =>
+              navigate(PathRouter.CART)
+            }
+          ></i>
         </div>
         <div className="flex h-[50px] w-full items-center justify-between px-44">
           <ElementNavigation
