@@ -9,4 +9,7 @@ export const PathRouter = {
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
   RESET_PASSWORD: "/auth/reset_password",
+  CHECKOUT: "/checkout",
+  SHIPPING: "/checkout/shipping",
+  PAYMENT: "/checkout/payment",
 }

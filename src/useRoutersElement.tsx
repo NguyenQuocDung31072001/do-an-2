@@ -2,6 +2,7 @@
 import {
   useRoutes,
   Outlet,
+  useNavigate,
 } from "react-router-dom"
 
 //pages
@@ -22,6 +23,11 @@ import MainFooter from "./components/footer/MainFooter"
 
 //constant
 import { PathRouter } from "./constant/path.router"
+import ShippingPages from "./pages/shipping/ShippingPages"
+import PaymentPages from "./pages/payment/PaymentPages"
+
+//asset
+import Logo from "./assets/logo-with-text.svg"
 
 function ParentComponent() {
   return (
@@ -36,7 +42,7 @@ function ParentComponent() {
 
 function AuthLayout() {
   return (
-    <div className=" h-[calc(100vh-130px)] bg-gray-100">
+    <div className="h-[calc(100vh-130px)] bg-gray-100">
       <MainHeader />
       <div className="mt-[130px]"></div>
       <Outlet />
@@ -48,6 +54,24 @@ function CartLayout() {
     <div className=" bg-gray-50">
       <MainHeader />
       <div className="mt-[130px]"></div>
+      <Outlet />
+    </div>
+  )
+}
+
+function CheckoutLayout() {
+  const navigate = useNavigate()
+  return (
+    <div className=" h-[calc(100vh-130px)] bg-primaryRed px-16">
+      <div
+        className="flex w-full justify-center bg-white py-4"
+        onClick={() => navigate(PathRouter.HOME)}
+      >
+        <img
+          src={Logo}
+          className="h-[50px] cursor-pointer object-cover"
+        />
+      </div>
       <Outlet />
     </div>
   )
@@ -110,6 +134,20 @@ export default function useRoutersElement() {
         {
           path: PathRouter.CART,
           element: <CartPages />,
+        },
+      ],
+    },
+    {
+      path: PathRouter.CHECKOUT,
+      element: <CheckoutLayout />,
+      children: [
+        {
+          path: PathRouter.SHIPPING,
+          element: <ShippingPages />,
+        },
+        {
+          path: PathRouter.PAYMENT,
+          element: <PaymentPages />,
         },
       ],
     },
