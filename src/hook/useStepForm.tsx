@@ -16,16 +16,15 @@ export default function useStepForm() {
   }, [listTitle, current])
 
   const gotoStep = (number: number) => {
-    if (
-      number < 0 ||
-      number > listTitle.length - 1
-    )
+    if (number < 0 || number > listTitle.length) {
       return
+    }
     setCurrent(number)
   }
   return {
     current,
     gotoStep,
+    listTitle,
     setListTitle,
     renderStepForm,
   }

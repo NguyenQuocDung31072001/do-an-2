@@ -28,6 +28,7 @@ import PaymentPages from "./pages/payment/PaymentPages"
 
 //asset
 import Logo from "./assets/logo-with-text.svg"
+import CheckoutResult from "./pages/checkout_result/CheckoutResult"
 
 function ParentComponent() {
   return (
@@ -148,6 +149,10 @@ export default function useRoutersElement() {
         {
           path: PathRouter.PAYMENT,
           element: <PaymentPages />,
+        },
+        {
+          path: PathRouter.CHECKOUT_RESULT,
+          element: <CheckoutResult />,
         },
       ],
     },

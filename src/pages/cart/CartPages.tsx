@@ -1,11 +1,14 @@
 import React from "react"
 import { convertToVNPrice } from "../../utils/string"
 import CartItem from "./component/CartItem"
+import { useNavigate } from "react-router-dom"
+import { PathRouter } from "../../constant/path.router"
 
 export default function CartPages() {
   const [cartData, setCartData] = React.useState(
     [],
   )
+  const navigate = useNavigate()
   const price = 0
   return (
     <div className="px-16 pt-10">
@@ -40,7 +43,12 @@ export default function CartPages() {
         <span className="text-gray-500">
           Đã bao gồm VAT nếu có
         </span>
-        <button className="rounded-[20px] bg-primaryRed px-8 py-2 font-bold text-primaryYellow duration-150 hover:bg-primaryYellow hover:text-primaryRed">
+        <button
+          className="rounded-[20px] bg-primaryRed px-8 py-2 font-bold text-primaryYellow duration-150 hover:bg-primaryYellow hover:text-primaryRed"
+          onClick={() =>
+            navigate(PathRouter.SHIPPING)
+          }
+        >
           THANH TOÁN
         </button>
       </div>
