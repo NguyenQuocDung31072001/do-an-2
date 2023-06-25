@@ -16,8 +16,13 @@ import { useNavigate } from "react-router-dom"
 import { PathRouter } from "../../constant/path.router"
 import ElementNavigation from "./component/ElementNavigation"
 import SearchHeader from "./component/SearchHeader"
+import UserIcon from "./component/UserIcon"
 
 export default function MainHeader() {
+  const isUserLogin = Boolean(
+    window.localStorage.getItem("user"),
+  )
+
   //useState
   const [positionHeader, setPositionHeader] =
     React.useState("0px")
@@ -57,12 +62,16 @@ export default function MainHeader() {
         </div>
         <div className="absolute right-20 top-5 flex ">
           <SearchHeader />
-          <i
-            className="fas fa-sign-in-alt h over:text-primaryYellow mx-1 cursor-pointer rounded-[50%] bg-primaryYellow p-3 text-[16px] font-bold text-primaryRed duration-500 hover:bg-primaryRed  hover:text-primaryYellow"
-            onClick={() =>
-              navigate(PathRouter.LOGIN)
-            }
-          ></i>
+          {isUserLogin && <UserIcon />}
+          {!isUserLogin && (
+            <i
+              className="fas fa-sign-in-alt mx-1 cursor-pointer rounded-[50%] bg-primaryYellow p-3 text-[16px] font-bold text-primaryRed duration-500 hover:bg-primaryRed  hover:text-primaryYellow"
+              onClick={() =>
+                navigate(PathRouter.LOGIN)
+              }
+            ></i>
+          )}
+
           <i
             className="fas fa-shopping-cart mx-1 cursor-pointer rounded-[50%] bg-primaryRed p-3 text-[16px] font-bold text-primaryYellow duration-500 hover:bg-primaryYellow hover:text-primaryRed"
             onClick={() =>

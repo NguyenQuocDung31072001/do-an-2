@@ -9,6 +9,9 @@ export default function LoginPages() {
   const [password, setPassword] =
     React.useState<string>("")
 
+  const handleLogin = () => {
+    window.localStorage.setItem("user", "user")
+  }
   return (
     <div className="flex w-full items-center justify-center bg-gray-100">
       <div className="my-16 flex w-[50%] flex-col items-center justify-center rounded-[2px] bg-white p-8 shadow-sm">
@@ -40,7 +43,10 @@ export default function LoginPages() {
               </span>
             </Link>
           </div>
-          <button className="mb-4 w-full rounded-[10px] bg-primaryRed/90 py-2 text-white duration-300 hover:bg-primaryRed">
+          <button
+            className="mb-4 w-full rounded-[10px] bg-primaryRed/90 py-2 text-white duration-300 hover:bg-primaryRed"
+            onClick={handleLogin}
+          >
             Đăng nhập
           </button>
           <span className="font-normal">
