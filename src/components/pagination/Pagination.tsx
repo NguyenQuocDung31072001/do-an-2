@@ -6,13 +6,16 @@ import ChevronLeftIcon from "../../icon/chevron/ChevronLeftIcon"
 import ChevronRightIcon from "../../icon/chevron/ChevronRightIcon"
 interface IProps {
   total: number
+  page: number | undefined
+  setPage: React.Dispatch<
+    React.SetStateAction<number | undefined>
+  >
 }
 export default function Pagination({
   total,
+  page = 1,
+  setPage,
 }: IProps) {
-  const [page, setPage] =
-    React.useState<number>(1)
-
   const pageSize = Config.PAGE_SIZE
   const numberPagination =
     Config.NUMBER_PAGINATION

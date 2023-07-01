@@ -4,9 +4,10 @@ import ProductRating from "../ProductRating"
 import { convertToVNPrice } from "../../utils/string"
 import { useNavigate } from "react-router-dom"
 import { PathRouter } from "../../constant/path.router"
+import { ProductType } from "../../types"
 
 interface IProps {
-  product: any
+  product: ProductType
 }
 export default function ProductList({
   product,
@@ -22,7 +23,7 @@ export default function ProductList({
         }
       >
         <img
-          src={ProductImage}
+          src={product.featuredImage}
           alt=""
           className="cursor-pointer object-cover duration-200 hover:scale-110"
         />
@@ -55,12 +56,12 @@ export default function ProductList({
       <div className="flex px-2">
         <p className="text-[16px] font-bold text-primaryRed">
           {convertToVNPrice(
-            (product.price *
-              (100 - product.sale)) /
-              100,
+            product.price - product.discount,
           )}
         </p>
-        <p className="pl-4 text-[16px] text-gray-500">{`-${product.sale}%`}</p>
+        <p className="pl-4 text-[16px] text-gray-500">{`-${
+          (product.price / product.discount) * 100
+        }%`}</p>
       </div>
       <p className="px-2 text-[14px] text-gray-300 line-through">
         {convertToVNPrice(product.price)}

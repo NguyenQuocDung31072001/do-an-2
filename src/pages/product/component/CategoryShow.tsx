@@ -4,8 +4,30 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion"
+import { CategoryType } from "../../../types"
+import {
+  useLocation,
+  useNavigate,
+} from "react-router-dom"
 
-export default function CategoryShow() {
+interface IPropsCategoryShow {
+  categories: CategoryType[]
+  categoriesParam: string | undefined
+  setCategoriesParam: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >
+}
+
+export default function CategoryShow({
+  categories,
+  categoriesParam,
+  setCategoriesParam,
+}: IPropsCategoryShow) {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const queryParams = new URLSearchParams(
+    location.search,
+  )
   const { scrollY } = useScroll()
   const [isPositionFixed, setIsPositionFixed] =
     React.useState<boolean>(false)
@@ -16,12 +38,17 @@ export default function CategoryShow() {
     (latest) => {
       if (latest > 690) {
         setIsPositionFixed(true)
-        console.log({ latest, scrollY })
       } else {
         setIsPositionFixed(false)
       }
     },
   )
+
+  const handleSelectCategory = (id: string) => {
+    queryParams.set("category", id)
+    setCategoriesParam(id)
+    navigate({ search: queryParams.toString() })
+  }
 
   return (
     <div
@@ -29,15 +56,24 @@ export default function CategoryShow() {
         isPositionFixed
           ? "fixed top-[40px] w-[calc(100%-128px)]"
           : ""
-      } z-10 flex translate-y-[-5px] rounded-[10px] bg-white p-4`}
+      } z-10 flex translate-y-[-5px] flex-wrap rounded-[10px] bg-white p-4`}
     >
-      {PRODUCT_CATEGORIES.map((item) => {
+      {categories?.map((categoryItem) => {
         return (
           <div
-            key={item.name}
-            className="mx-2 cursor-pointer rounded-[30px] bg-gray-100 px-8 py-2 font-semibold"
+            key={categoryItem.id}
+            className={`mx-2 my-2 cursor-pointer rounded-[30px] ${
+              categoriesParam === categoryItem.id
+                ? "bg-blue-400"
+                : "bg-gray-100"
+            } px-8 py-2 font-semibold `}
+            onClick={() =>
+              handleSelectCategory(
+                categoryItem.id,
+              )
+            }
           >
-            {item.name}
+            {categoryItem.name}
           </div>
         )
       })}

@@ -3,11 +3,112 @@ import CategoryShow from "./component/CategoryShow"
 import { ProductMocks } from "../../mocks/product"
 import ProductList from "../../components/product/ProductList"
 import Pagination from "../../components/pagination/Pagination"
+import {
+  useMutation,
+  useQuery,
+} from "react-query"
+import { getAllProduct } from "../../services/product"
+import {
+  CategoryType,
+  ProductType,
+} from "../../types"
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom"
+import usePagination from "../../hook/usePagination"
 
 export default function ProductPages() {
   const ref = React.useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  //state
+  const [categoriesParam, setCategoriesParam] =
+    React.useState<string>()
+  const [page, setPage] = React.useState<number>()
+
+  const { data } = useQuery({
+    queryKey: ["product", page, categoriesParam],
+    queryFn: () =>
+      getAllProduct({
+        page: page,
+        categories: categoriesParam,
+      }),
+    refetchOnWindowFocus: false,
+  })
+
+  const categories = data?.data?.categories
+  const products = data?.data?.products
+
+  const categoryFormat: CategoryType[] =
+    React.useMemo(() => {
+      return categories
+        ?.filter((categoryItem: any) =>
+          Boolean(categoryItem?.name),
+        )
+        ?.map((categoryItem: any) => ({
+          id: categoryItem._id,
+          name: categoryItem.name,
+        }))
+    }, [categories])
+
+  const productFormats: ProductType[] =
+    React.useMemo(() => {
+      return products?.map((product: any) => ({
+        id: product._id,
+        name: product.name,
+        featuredImage:
+          "http://localhost:3001/" +
+          product.featuredImage,
+        averageRate: product.ratingAvg,
+        quantityRating: product.totalRatings,
+        price: product.price,
+        discount: product.discount,
+        description: product.description,
+        uses: product.uses,
+        origin: product.origin,
+        maxQuantity: product.maxQuantity,
+        createdAt: product.createdAt,
+        totalViews: product.totalViews,
+      }))
+    }, [products])
+
+  const queryParams = new URLSearchParams(
+    location.search,
+  )
+  const handleSetPage = () => {
+    const pageParam = page?.toString() || ""
+    queryParams.set("page", pageParam)
+    navigate({ search: queryParams.toString() })
+  }
+  React.useEffect(() => {
+    if (!page) return
+    handleSetPage()
+  }, [page])
+
   React.useEffect(() => {
     window.scrollTo(0, 0)
+    if (location.search.includes("category")) {
+      const categoryParam = location.search
+        .split("&")
+        .find((query) =>
+          query.includes("category"),
+        )
+        ?.split("=")[1]
+
+      setCategoriesParam(categoryParam)
+    }
+    if (location.search.includes("page")) {
+      const pageParam = Number(
+        location.search
+          .split("&&")
+          .find((query) => query.includes("page"))
+          ?.split("=")[1],
+      )
+      setPage(pageParam)
+    }
   }, [])
   return (
     <div>
@@ -37,19 +138,29 @@ export default function ProductPages() {
         ref={ref}
         className="z-0 bg-gray-100 px-16"
       >
-        <div className="h-[100px] w-full">
-          <CategoryShow />
+        <div className="h-[200px] w-full">
+          <CategoryShow
+            categories={categoryFormat}
+            categoriesParam={categoriesParam}
+            setCategoriesParam={
+              setCategoriesParam
+            }
+          />
         </div>
         <div className="flex flex-wrap justify-between">
-          {ProductMocks.map((product, index) => (
+          {productFormats?.map((product) => (
             <ProductList
-              key={index}
+              key={product.id}
               product={product}
             />
           ))}
         </div>
         <div className="flex w-full justify-center py-8">
-          <Pagination total={15} />
+          <Pagination
+            page={page}
+            setPage={setPage}
+            total={data?.data?.totalPages}
+          />
         </div>
       </div>
     </div>
