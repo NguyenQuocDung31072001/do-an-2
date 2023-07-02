@@ -3,16 +3,35 @@ import DetailInfomation from "./component/DetailInfomation"
 import CommentAndRating from "./component/CommentAndRating"
 import React from "react"
 import ProductList from "../../components/product/ProductList"
-import { ProductMocks } from "../../mocks/product"
-import Pagination from "../../components/pagination/Pagination"
+import { useParams } from "react-router-dom"
+import { useQuery } from "react-query"
+import { getProductById } from "../../services/product"
+import { formatProductResponse } from "../../utils/product/formatProductResponses"
+import { ProductType } from "../../types"
 
 export default function ProductDetail() {
+  const { id } = useParams()
+  const { data } = useQuery({
+    queryKey: ["product detail"],
+    queryFn: () => getProductById(id || ""),
+    enabled: true,
+  })
+  const productFormat = formatProductResponse(
+    data?.data?.product,
+  )
+  const productRelatedFormat: ProductType[] =
+    data?.data?.relatedProducts?.map(
+      (_product: any) => {
+        return formatProductResponse(_product)
+      },
+    )
+
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
   return (
     <div className="bg-primaryRed px-16 py-8">
-      <ProductInfo />
+      <ProductInfo product={productFormat} />
       <DetailInfomation />
       <CommentAndRating />
       <div className="my-8">
@@ -22,16 +41,16 @@ export default function ProductDetail() {
         <div className="h-2 w-[50%] bg-primaryYellow" />
       </div>
       <div className="flex flex-wrap justify-between">
-        {ProductMocks.map((product, index) => (
+        {productRelatedFormat?.map((product) => (
           <ProductList
-            key={index}
+            key={product.id}
             product={product}
           />
         ))}
       </div>
-      <div className="flex w-full justify-center py-8">
+      {/* <div className="flex w-full justify-center py-8">
         <Pagination total={8} />
-      </div>
+      </div> */}
     </div>
   )
 }

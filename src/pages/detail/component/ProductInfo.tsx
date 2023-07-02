@@ -1,7 +1,13 @@
 import ProductImage from "../../../assets/intro-1.jpg"
+import { ProductType } from "../../../types"
 import ProductDetailInfo from "./ProductDetailInfo"
 
-export default function ProductInfo() {
+export interface IPropsProductInfo {
+  product: ProductType
+}
+export default function ProductInfo({
+  product,
+}: IPropsProductInfo) {
   return (
     <div className=" flex items-center justify-between">
       <div className="w-[50%] overflow-hidden">
@@ -12,7 +18,7 @@ export default function ProductInfo() {
         />
       </div>
       <div className="h-[460px] w-[50%] bg-white p-8">
-        <ProductDetailInfo />
+        <ProductDetailInfo product={product} />
       </div>
     </div>
   )

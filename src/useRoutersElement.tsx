@@ -105,7 +105,7 @@ export default function useRoutersElement() {
           element: <HandbookView />,
         },
         {
-          path: PathRouter.DETAIL,
+          path: `${PathRouter.DETAIL}/:id`,
           element: <ProductDetail />,
         },
       ],

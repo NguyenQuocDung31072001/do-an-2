@@ -71,9 +71,9 @@ export default function CommentAndRating() {
         Chưa có đánh giá nào cho sản phẩm này.
       </div>
       <div className="my-8 h-[1px] w-full bg-gray-200" />
-      <div className="flex w-full justify-center">
+      {/* <div className="flex w-full justify-center">
         <Pagination total={3} />
-      </div>
+      </div> */}
     </div>
   )
 }

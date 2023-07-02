@@ -4,7 +4,7 @@ export const PathRouter = {
   PRODUCT: "/product",
   HANDBOOK: "/handbook",
   HANDBOOK_VIEW: "/handbook/view",
-  DETAIL: "/detail",
+  DETAIL: "/product_detail",
   CART: "/cart",
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",

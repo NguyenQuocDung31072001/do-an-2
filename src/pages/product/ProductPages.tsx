@@ -18,6 +18,7 @@ import {
   useParams,
 } from "react-router-dom"
 import usePagination from "../../hook/usePagination"
+import { formatProductResponse } from "../../utils/product/formatProductResponses"
 
 export default function ProductPages() {
   const ref = React.useRef<HTMLDivElement>(null)
@@ -56,23 +57,9 @@ export default function ProductPages() {
 
   const productFormats: ProductType[] =
     React.useMemo(() => {
-      return products?.map((product: any) => ({
-        id: product._id,
-        name: product.name,
-        featuredImage:
-          "http://localhost:3001/" +
-          product.featuredImage,
-        averageRate: product.ratingAvg,
-        quantityRating: product.totalRatings,
-        price: product.price,
-        discount: product.discount,
-        description: product.description,
-        uses: product.uses,
-        origin: product.origin,
-        maxQuantity: product.maxQuantity,
-        createdAt: product.createdAt,
-        totalViews: product.totalViews,
-      }))
+      return products?.map((product: any) => {
+        return formatProductResponse(product)
+      })
     }, [products])
 
   const queryParams = new URLSearchParams(
@@ -110,6 +97,7 @@ export default function ProductPages() {
       setPage(pageParam)
     }
   }, [])
+
   return (
     <div>
       <div className="z-10 flex w-full">

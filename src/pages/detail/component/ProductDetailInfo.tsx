@@ -4,13 +4,14 @@ import ProductRating from "../../../components/ProductRating"
 import { convertToVNPrice } from "../../../utils/string"
 import QuantityProductManegement from "../../../components/quantity/QuantityProductManegement"
 import CartIconFilled from "../../../icon/CartIconFilled"
+import { ProductType } from "../../../types"
+import { IPropsProductInfo } from "./ProductInfo"
 
-export default function ProductDetailInfo() {
-  const product = ProductMocks[1]
-
+export default function ProductDetailInfo({
+  product,
+}: IPropsProductInfo) {
   return (
     <div>
-      {" "}
       <p className="font-serif text-[36px] font-bold">
         {product.name}
       </p>
@@ -36,12 +37,12 @@ export default function ProductDetailInfo() {
       <div className="flex px-2">
         <p className="text-[24px] font-bold text-primaryRed">
           {convertToVNPrice(
-            (product.price *
-              (100 - product.sale)) /
-              100,
+            product.price - product.discount,
           )}
         </p>
-        <p className="pl-4 text-[24px] text-gray-500">{`-${product.sale}%`}</p>
+        <p className="pl-4 text-[24px] text-gray-500">{`-${
+          (product.discount / product.price) * 100
+        }%`}</p>
       </div>
       <p className="px-2 text-[18px] text-gray-400 line-through">
         {convertToVNPrice(product.price)}

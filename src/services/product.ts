@@ -14,3 +14,21 @@ export const getAllProduct = async (query?: {
   const res = await axiosInstance.get(url)
   return res
 }
+
+export const getProductById = async (
+  id: string,
+) => {
+  const res = await axiosInstance.get(
+    `products/${id}`,
+  )
+  return res
+}
+
+export const getProductReview = async (
+  id: string,
+) => {
+  const res = await axiosInstance.get(
+    `products/${id}/reviews`,
+  )
+  return res
+}

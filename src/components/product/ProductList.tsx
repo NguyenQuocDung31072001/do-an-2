@@ -1,5 +1,4 @@
 import React from "react"
-import ProductImage from "../../assets/intro-1.jpg"
 import ProductRating from "../ProductRating"
 import { convertToVNPrice } from "../../utils/string"
 import { useNavigate } from "react-router-dom"
@@ -19,7 +18,9 @@ export default function ProductList({
       <div
         className="overflow-hidden"
         onClick={() =>
-          navigate(PathRouter.DETAIL)
+          navigate(
+            `${PathRouter.DETAIL}/${product.id}`,
+          )
         }
       >
         <img
@@ -31,7 +32,9 @@ export default function ProductList({
       <p
         className="mt-4 cursor-pointer px-2 font-bold"
         onClick={() =>
-          navigate(PathRouter.DETAIL)
+          navigate(
+            `${PathRouter.DETAIL}/${product.id}`,
+          )
         }
       >
         {product.name}
@@ -60,7 +63,7 @@ export default function ProductList({
           )}
         </p>
         <p className="pl-4 text-[16px] text-gray-500">{`-${
-          (product.price / product.discount) * 100
+          (product.discount / product.price) * 100
         }%`}</p>
       </div>
       <p className="px-2 text-[14px] text-gray-300 line-through">

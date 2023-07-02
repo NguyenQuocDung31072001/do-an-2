@@ -1,6 +1,16 @@
 import React from "react"
+import { useQuery } from "react-query"
+import { useParams } from "react-router-dom"
+import { getProductReview } from "../../../services/product"
 
 export default function DetailInfomation() {
+  const { id } = useParams()
+  const { data } = useQuery({
+    queryKey: ["product preview"],
+    queryFn: () => getProductReview(id || ""),
+  })
+  console.log({ data })
+
   return (
     <div className="mt-8 rounded-[10px] bg-white p-8">
       <p className="mb-2 font-serif text-[24px] font-bold text-primaryRed">
