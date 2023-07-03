@@ -29,6 +29,10 @@ import PaymentPages from "./pages/payment/PaymentPages"
 //asset
 import Logo from "./assets/logo-with-text.svg"
 import CheckoutResult from "./pages/checkout_result/CheckoutResult"
+import ProfilePages from "./pages/profile/ProfilePages"
+import ProfileChangePasswordPages from "./pages/profile/ProfileChangePasswordPages"
+import ProfilePurchase from "./pages/profile/ProfilePurchase"
+import ProfileInfoPages from "./pages/profile/ProfileInfoPages"
 
 function ParentComponent() {
   return (
@@ -107,6 +111,26 @@ export default function useRoutersElement() {
         {
           path: `${PathRouter.DETAIL}/:id`,
           element: <ProductDetail />,
+        },
+        {
+          path: PathRouter.PROFILE,
+          element: <ProfilePages />,
+          children: [
+            {
+              path: PathRouter.PROFILE,
+              element: <ProfileInfoPages />,
+            },
+            {
+              path: PathRouter.PROFILE_PURCHASES,
+              element: <ProfilePurchase />,
+            },
+            {
+              path: PathRouter.PROFILE_CHANGE_PASSWORD,
+              element: (
+                <ProfileChangePasswordPages />
+              ),
+            },
+          ],
         },
       ],
     },

@@ -13,4 +13,9 @@ export const PathRouter = {
   SHIPPING: "/checkout/shipping",
   PAYMENT: "/checkout/payment",
   CHECKOUT_RESULT: "/checkout/result",
+  PROFILE: "/profile",
+  PROFILE_PURCHASES: "/profile/purchases",
+  PROFILE_CHANGE_PASSWORD:
+    "/profile/change-password",
+  LOGOUT: "/logout",
 }
