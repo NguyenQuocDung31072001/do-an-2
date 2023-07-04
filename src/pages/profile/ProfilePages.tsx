@@ -7,7 +7,7 @@ export default function ProfilePages() {
       <div className="col-span-4 px-8">
         <MenuProfile />
       </div>
-      <div className="col-span-8 px-8">
+      <div className="col-span-8 min-h-[400px] px-8">
         <Outlet />
       </div>
     </div>

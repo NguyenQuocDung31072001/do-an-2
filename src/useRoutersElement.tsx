@@ -33,6 +33,7 @@ import ProfilePages from "./pages/profile/ProfilePages"
 import ProfileChangePasswordPages from "./pages/profile/ProfileChangePasswordPages"
 import ProfilePurchase from "./pages/profile/ProfilePurchase"
 import ProfileInfoPages from "./pages/profile/ProfileInfoPages"
+import Logout from "./pages/profile/Logout"
 
 function ParentComponent() {
   return (
@@ -129,6 +130,10 @@ export default function useRoutersElement() {
               element: (
                 <ProfileChangePasswordPages />
               ),
+            },
+            {
+              path: PathRouter.LOGOUT,
+              element: <Logout />,
             },
           ],
         },

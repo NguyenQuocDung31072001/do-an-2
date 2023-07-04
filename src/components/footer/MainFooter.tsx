@@ -3,7 +3,7 @@ import Logo from "../../assets/logo-with-text.svg"
 
 export default function MainFooter() {
   return (
-    <div className="w-full bg-slate-50 bg-pattern bg-cover bg-center px-16 py-8">
+    <div className="w-full bg-slate-50 bg-pattern bg-contain bg-center px-16 py-8">
       <img
         src={Logo}
         alt=""

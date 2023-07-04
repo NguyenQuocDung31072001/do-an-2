@@ -17,5 +17,5 @@ export const PathRouter = {
   PROFILE_PURCHASES: "/profile/purchases",
   PROFILE_CHANGE_PASSWORD:
     "/profile/change-password",
-  LOGOUT: "/logout",
+  LOGOUT: "/profile/logout",
 }
