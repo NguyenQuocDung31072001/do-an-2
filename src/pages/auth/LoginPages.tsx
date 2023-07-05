@@ -1,16 +1,63 @@
 import React from "react"
 import InputWithOutline from "../../components/input/InputWithOutline"
 import DefaultCheckbox from "../../components/checkbox/DefaultCheckbox"
-import { Link } from "react-router-dom"
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom"
 import { PathRouter } from "../../constant/path.router"
+import { useMutation } from "react-query"
+import { loginServices } from "../../services/auth"
 
 export default function LoginPages() {
   const [email, setEmail] = React.useState("")
   const [password, setPassword] =
     React.useState<string>("")
+  const [checkedRemember, setCheckedRemember] =
+    React.useState<boolean>(false)
 
+  const navigate = useNavigate()
+
+  const { mutateAsync: loginApi } = useMutation({
+    mutationKey: ["login_service"],
+    mutationFn: loginServices,
+  })
+
+  React.useEffect(() => {
+    if (window.localStorage.getItem("account")) {
+      setEmail(
+        JSON.parse(
+          window.localStorage.getItem(
+            "account",
+          ) || "",
+        )?.email,
+      )
+      setCheckedRemember(true)
+    }
+  }, [])
   const handleLogin = () => {
-    window.localStorage.setItem("user", "user")
+    loginApi({
+      email: email,
+      password: password,
+    }).then((res) => {
+      if (!res?.data?._id) return
+      window.localStorage.setItem(
+        "email",
+        res?.data?.email,
+      )
+      if (checkedRemember) {
+        window.localStorage.setItem(
+          "account",
+          JSON.stringify({
+            email: res?.data?.email,
+          }),
+        )
+        navigate(PathRouter.HOME)
+      } else {
+        window.localStorage.removeItem("account")
+        navigate(PathRouter.HOME)
+      }
+    })
   }
   return (
     <div className="flex w-full items-center justify-center bg-gray-100">
@@ -36,7 +83,12 @@ export default function LoginPages() {
             setValue={setPassword}
           />
           <div className="mt-4 mb-2 flex w-full items-center justify-between">
-            <DefaultCheckbox />
+            <DefaultCheckbox
+              checkedRemember={checkedRemember}
+              setCheckedRemember={
+                setCheckedRemember
+              }
+            />
             <Link to={PathRouter.RESET_PASSWORD}>
               <span className="text-primaryRed">
                 Quên mật khẩu?

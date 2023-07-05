@@ -20,7 +20,7 @@ import UserIcon from "./component/UserIcon"
 
 export default function MainHeader() {
   const isUserLogin = Boolean(
-    window.localStorage.getItem("user"),
+    window.localStorage.getItem("email"),
   )
 
   //useState

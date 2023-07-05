@@ -27,6 +27,7 @@ export default function InputWithOutline({
             : "text-[18px] text-black"
         }`}
         htmlFor="name"
+        onClick={() => setIsFocused(true)}
       >
         {name}
       </label>

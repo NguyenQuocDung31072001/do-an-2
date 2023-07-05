@@ -8,6 +8,11 @@ export default function UserIcon() {
     React.useState<boolean>(false)
   const navigate = useNavigate()
 
+  const handleLogout = () => {
+    window.localStorage.removeItem("email")
+    navigate(PathRouter.LOGIN)
+  }
+
   const { element } = useClickOutside({
     element: (
       <div className="relative">
@@ -25,7 +30,10 @@ export default function UserIcon() {
             >
               Quản lý tài khoản
             </li>
-            <li className="cursor-pointer px-2 duration-200 hover:bg-gray-100">
+            <li
+              className="cursor-pointer px-2 duration-200 hover:bg-gray-100"
+              onClick={handleLogout}
+            >
               Đăng xuất
             </li>
           </ul>

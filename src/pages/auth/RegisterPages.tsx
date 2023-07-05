@@ -1,7 +1,12 @@
 import React from "react"
 import InputWithOutline from "../../components/input/InputWithOutline"
-import { Link } from "react-router-dom"
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom"
 import { PathRouter } from "../../constant/path.router"
+import { useMutation } from "react-query"
+import { registerServices } from "../../services/auth"
 
 export default function RegisterPages() {
   const [name, setName] = React.useState("")
@@ -11,6 +16,33 @@ export default function RegisterPages() {
   const [confirmPassword, setConfirmPassword] =
     React.useState("")
 
+  const navigate = useNavigate()
+
+  const { mutateAsync: registerApi } =
+    useMutation({
+      mutationKey: ["register_key"],
+      mutationFn: registerServices,
+    })
+
+  const handleRegister = () => {
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !confirmPassword
+    )
+      return
+
+    registerApi({
+      fullName: name,
+      email: email,
+      password: password,
+      passwordConfirmation: confirmPassword,
+    }).then((res) => {
+      console.log({ res })
+      navigate(PathRouter.LOGIN)
+    })
+  }
   return (
     <div className="flex w-full items-center justify-center bg-gray-100">
       <div className="my-16 flex w-[50%] flex-col items-center justify-center rounded-[2px] bg-white p-8 shadow-sm">
@@ -49,7 +81,10 @@ export default function RegisterPages() {
             setValue={setConfirmPassword}
           />
           <div className="w-full py-2" />
-          <button className="mb-4 w-full rounded-[10px] bg-primaryRed/90 py-2 text-white duration-300 hover:bg-primaryRed">
+          <button
+            className="mb-4 w-full rounded-[10px] bg-primaryRed/90 py-2 text-white duration-300 hover:bg-primaryRed"
+            onClick={handleRegister}
+          >
             Đăng ký
           </button>
           <span className="font-normal">

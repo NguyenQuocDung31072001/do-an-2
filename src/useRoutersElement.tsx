@@ -34,8 +34,16 @@ import ProfileChangePasswordPages from "./pages/profile/ProfileChangePasswordPag
 import ProfilePurchase from "./pages/profile/ProfilePurchase"
 import ProfileInfoPages from "./pages/profile/ProfileInfoPages"
 import Logout from "./pages/profile/Logout"
+import React from "react"
 
 function ParentComponent() {
+  const navigate = useNavigate()
+  React.useEffect(() => {
+    if (!window.localStorage.getItem("email")) {
+      navigate(PathRouter.LOGIN)
+    }
+  }, [])
+
   return (
     <div>
       <MainHeader />
@@ -47,6 +55,13 @@ function ParentComponent() {
 }
 
 function AuthLayout() {
+  const navigate = useNavigate()
+  React.useEffect(() => {
+    if (window.localStorage.getItem("email")) {
+      navigate(PathRouter.HOME)
+    }
+  }, [])
+
   return (
     <div className="h-[calc(100vh-130px)] bg-gray-100">
       <MainHeader />
@@ -56,6 +71,12 @@ function AuthLayout() {
   )
 }
 function CartLayout() {
+  const navigate = useNavigate()
+  React.useEffect(() => {
+    if (!window.localStorage.getItem("email")) {
+      navigate(PathRouter.LOGIN)
+    }
+  }, [])
   return (
     <div className=" bg-gray-50">
       <MainHeader />
@@ -67,6 +88,11 @@ function CartLayout() {
 
 function CheckoutLayout() {
   const navigate = useNavigate()
+  React.useEffect(() => {
+    if (!window.localStorage.getItem("email")) {
+      navigate(PathRouter.LOGIN)
+    }
+  }, [])
   return (
     <div className=" h-[calc(100vh-130px)] bg-primaryRed px-16">
       <div
