@@ -3,6 +3,7 @@ import useStepForm from "../../hook/useStepForm"
 import { convertToVNPrice } from "../../utils/string"
 import { useNavigate } from "react-router-dom"
 import { PathRouter } from "../../constant/path.router"
+import { useOrderContext } from "../../context/OrderContext"
 
 const listTitleData = [
   "Chọn sản phẩm",
@@ -11,6 +12,14 @@ const listTitleData = [
 ]
 
 export default function PaymentPages() {
+  const {
+    products,
+    email,
+    fullName,
+    phoneNumber,
+    shipingAddress,
+  } = useOrderContext()
+
   const {
     gotoStep,
     renderStepForm,
@@ -27,6 +36,17 @@ export default function PaymentPages() {
   React.useEffect(() => {
     gotoStep(2)
   }, [listTitle])
+
+  const totalPrice = products.reduce(
+    (acc, currItem) => {
+      const price =
+        (currItem._price - currItem._discount) *
+        currItem.quantity
+      acc += price
+      return acc
+    },
+    0,
+  )
   return (
     <div className="h-[100vh] bg-white">
       <div className="px-32">
@@ -74,26 +94,23 @@ export default function PaymentPages() {
               <p className="font-medium">
                 Họ tên
               </p>
-              <p>Phúc Hoàng</p>
+              <p>{fullName}</p>
             </div>
             <div className="mb-2 flex items-center justify-between">
               <p className="font-medium">
                 Điện thoại
               </p>
-              <p>0945094870</p>
+              <p>{phoneNumber}</p>
             </div>
             <div className="mb-2 flex items-center justify-between">
               <p className="font-medium">Email</p>
-              <p>phuchoang2411@gmail.com</p>
+              <p>{email}</p>
             </div>
             <div className="mb-2 flex items-center justify-between">
               <p className="font-medium">
                 Địa chỉ nhận hàng
               </p>
-              <p>
-                KP 1, P. Phú Tài, TP. Phan Thiết,
-                T. Bình Thuận
-              </p>
+              <p>{shipingAddress}</p>
             </div>
           </div>
         </div>
@@ -114,15 +131,25 @@ export default function PaymentPages() {
           </div>
           <div className="my-4 h-[1px] w-full bg-gray-200 " />
           <div className="px-4">
-            <div className="flex items-center justify-between">
-              <span>
-                1 x
-                <span>Yến Khoẻ Mạnh Bổ Thận</span>
-              </span>
-              <span className="font-medium text-primaryRed">
-                {convertToVNPrice(300000)}
-              </span>
-            </div>
+            {products.map((productItem) => (
+              <div
+                key={productItem.id}
+                className="flex items-center justify-between"
+              >
+                <span>
+                  {productItem.quantity} x
+                  <span>{productItem.name}</span>
+                </span>
+                <span className="font-medium text-primaryRed">
+                  {convertToVNPrice(
+                    (productItem._price -
+                      productItem._discount) *
+                      productItem.quantity,
+                  )}
+                </span>
+              </div>
+            ))}
+
             <div className="my-2 h-1 w-full bg-gray-200"></div>
             <div className="flex items-center justify-between">
               <p className=" font-semibold">
@@ -130,7 +157,7 @@ export default function PaymentPages() {
               </p>
               <div>
                 <p className="text-[18px] font-bold text-primaryRed">
-                  {convertToVNPrice(300000)}
+                  {convertToVNPrice(totalPrice)}
                 </p>
                 <p className="text-gray-600">
                   Đã bao gồm VAT nếu có

@@ -12,7 +12,6 @@ export default function ProductList({
   product,
 }: IProps) {
   const navigate = useNavigate()
-  console.log({ product })
 
   return (
     <div className="w-[420px] overflow-hidden rounded-[10px] bg-white">

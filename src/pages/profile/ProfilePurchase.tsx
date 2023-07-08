@@ -1,5 +1,9 @@
 import React from "react"
 import { convertToVNPrice } from "../../utils/string"
+import { useQuery } from "react-query"
+import { getPurchases } from "../../services/profile"
+import { useNavigate } from "react-router"
+import { PathRouter } from "../../constant/path.router"
 
 const fakeData = [
   {
@@ -65,6 +69,13 @@ const fakeData = [
   },
 ]
 export default function ProfilePurchase() {
+  const navigate = useNavigate()
+
+  const { data } = useQuery({
+    queryKey: ["get_purchase"],
+    queryFn: getPurchases,
+  })
+
   return (
     <div>
       <table className="w-full table-auto">
@@ -85,57 +96,63 @@ export default function ProfilePurchase() {
           </tr>
         </thead>
         <tbody className="bg-gray-200/10">
-          {fakeData.map((data, index) => {
-            const totalPrice =
-              data.product.reduce((acc, curr) => {
-                acc =
-                  acc +
-                  Number(curr.price) *
-                    curr.quantity
-                return acc
-              }, 0)
-            return (
-              <tr
-                key={index}
-                className="my-2 hover:bg-gray-100"
-              >
-                <td className="px-4 py-2">
-                  {index + 1}
-                </td>
-                <td className="px-4 py-2">
-                  <p>Đặt ngày {data.time}</p>
-                  <ul>
-                    {data.product.map(
-                      (productItem, index) => {
-                        return (
-                          <li
-                            key={index + 1909}
-                            className="my-1 list-inside list-disc"
-                          >
-                            <span className="mr-2 font-semibold text-black">
-                              {
-                                productItem.quantity
+          {data?.data?.purchases?.map(
+            (item: any, index: number) => {
+              return (
+                <tr
+                  key={item._id}
+                  className="my-2 hover:bg-gray-100"
+                >
+                  <td className="px-4 py-2">
+                    {index + 1}
+                  </td>
+                  <td className="px-4 py-2">
+                    <p>
+                      Đặt ngày {item.createdAt}
+                    </p>
+                    <ul>
+                      {item.products.map(
+                        (productItem: any) => {
+                          return (
+                            <li
+                              key={
+                                productItem._id +
+                                item._id
                               }
-                              x
-                            </span>
-                            <span className="cursor-pointer font-medium text-primaryRed">
-                              {productItem.name}
-                            </span>
-                          </li>
-                        )
-                      },
-                    )}
-                  </ul>
-                </td>
-                <td className="px-4 py-2">
-                  {convertToVNPrice(totalPrice)}
-                </td>
-                <td className="px-4 py-2">
-                  {data.status}
-                </td>
-              </tr>
-            )
-          })}
+                              className="my-1 list-inside list-disc"
+                            >
+                              <span className="mr-2 font-semibold text-black">
+                                {
+                                  productItem.quantity
+                                }
+                                x
+                              </span>
+                              <span
+                                className="cursor-pointer font-medium text-primaryRed"
+                                onClick={() =>
+                                  navigate(
+                                    `${PathRouter.DETAIL}/${productItem.productId}`,
+                                  )
+                                }
+                              >
+                                {productItem.name}
+                              </span>
+                            </li>
+                          )
+                        },
+                      )}
+                    </ul>
+                  </td>
+                  <td className="px-4 py-2">
+                    {convertToVNPrice(item.total)}
+                  </td>
+                  <td className="px-4 py-2">
+                    {item.status}
+                  </td>
+                </tr>
+              )
+            },
+          )}
         </tbody>
       </table>
     </div>

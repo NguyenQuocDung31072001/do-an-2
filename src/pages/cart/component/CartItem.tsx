@@ -2,6 +2,8 @@ import React from "react"
 import { convertToVNPrice } from "../../../utils/string"
 import MinusIcon from "../../../icon/MinusIcon"
 import PlusIcon from "../../../icon/PlusIcon"
+import { useNavigate } from "react-router"
+import { PathRouter } from "../../../constant/path.router"
 
 export interface IPropsCartItem {
   featuredImage: string
@@ -30,6 +32,8 @@ export default function CartItem({
   handleDecreaseItem,
   handleDeteleItem,
 }: IProps) {
+  const navigate = useNavigate()
+
   return (
     <div className="my-4 grid h-[200px] w-full grid-cols-12 overflow-hidden rounded-[10px] bg-white shadow-lg">
       <div className="col-span-3">
@@ -40,14 +44,23 @@ export default function CartItem({
         />
       </div>
       <div className="col-span-7 flex flex-col justify-between py-12">
-        <p className="cursor-pointer text-[20px] font-bold">
+        <p
+          className="cursor-pointer text-[20px] font-bold hover:text-[21px]"
+          onClick={() => {
+            navigate(
+              `${PathRouter.DETAIL}/${item.productId}`,
+            )
+          }}
+        >
           {item.name}
         </p>
         <p className="font-bold text-primaryRed">
-          {convertToVNPrice(5300000)}
+          {convertToVNPrice(
+            item._price - item._discount,
+          )}
         </p>
         <p
-          className="cursor-pointer text-gray-500"
+          className=" w-32 cursor-pointer text-gray-500  hover:text-black"
           onClick={() => handleDeteleItem(item)}
         >
           Xoá sản phẩm

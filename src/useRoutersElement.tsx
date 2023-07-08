@@ -35,6 +35,7 @@ import ProfilePurchase from "./pages/profile/ProfilePurchase"
 import ProfileInfoPages from "./pages/profile/ProfileInfoPages"
 import Logout from "./pages/profile/Logout"
 import React from "react"
+import { OrderContextProvider } from "./context/OrderContext"
 
 function ParentComponent() {
   const navigate = useNavigate()

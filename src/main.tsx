@@ -7,17 +7,14 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query"
-import { CookiesProvider } from "react-cookie"
 
 const queryClient = new QueryClient()
 ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 ).render(
   <BrowserRouter>
-    <CookiesProvider>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </CookiesProvider>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </BrowserRouter>,
 )

@@ -3,6 +3,9 @@ import useStepForm from "../../hook/useStepForm"
 import InputNormal from "../../components/input/InputNomal"
 import { useNavigate } from "react-router-dom"
 import { PathRouter } from "../../constant/path.router"
+import { useQuery } from "react-query"
+import { getProfile } from "../../services/profile"
+import { useOrderContext } from "../../context/OrderContext"
 
 const listTitleData = [
   "Chọn sản phẩm",
@@ -10,17 +13,26 @@ const listTitleData = [
   "Thanh toán",
 ]
 export default function ShippingPages() {
+  const {
+    fullName,
+    setFullName,
+    phoneNumber,
+    setPhoneNumber,
+    shipingAddress,
+    setShippingAddress,
+    email,
+    setEmail,
+  } = useOrderContext()
   //state
-  const [fullname, setFullname] =
-    React.useState<string>("")
-  const [phoneNumber, setPhoneNumber] =
-    React.useState<string>("")
-  const [address, setAddress] =
-    React.useState<string>("")
-  const [email, setEmail] = React.useState(
-    "dungnguyen310701@gmail.com",
-  )
+
   const navigate = useNavigate()
+
+  const { data, refetch: getProfileQuery } =
+    useQuery({
+      queryKey: ["info"],
+      queryFn: getProfile,
+      enabled: false,
+    })
 
   const {
     gotoStep,
@@ -31,11 +43,20 @@ export default function ShippingPages() {
 
   React.useEffect(() => {
     setListTitle(listTitleData)
+    getProfileQuery()
   }, [])
 
   React.useEffect(() => {
     gotoStep(1)
   }, [listTitle])
+
+  React.useEffect(() => {
+    if (!data?.data) return
+    setEmail(data.data.email)
+    setFullName(data.data.fullName)
+    setShippingAddress(data.data.address)
+    setPhoneNumber(data.data.phoneNumber)
+  }, [data])
 
   return (
     <div className="h-[100vh] bg-white">
@@ -57,8 +78,8 @@ export default function ShippingPages() {
               <InputNormal
                 type="text"
                 placeholder="Họ và tên"
-                value={fullname}
-                setValue={setFullname}
+                value={fullName}
+                setValue={setFullName}
                 borderColor="gray-500"
               />
             </div>
@@ -83,8 +104,8 @@ export default function ShippingPages() {
               <InputNormal
                 type="text"
                 placeholder="Địa chỉ nhận hàng"
-                value={address}
-                setValue={setAddress}
+                value={shipingAddress}
+                setValue={setShippingAddress}
                 borderColor="gray-500"
               />
               <p className="my-2 text-[14px] text-gray-500">

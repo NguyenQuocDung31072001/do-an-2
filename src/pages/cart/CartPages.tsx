@@ -18,11 +18,14 @@ import {
   ToastContainer,
   toast,
 } from "react-toastify"
+import { useOrderContext } from "../../context/OrderContext"
 
 export default function CartPages() {
-  const [cartData, setCartData] = React.useState(
-    [],
-  )
+  const { setProducts } = useOrderContext()
+
+  const [cartData, setCartData] = React.useState<
+    IPropsCartItem[]
+  >([])
   const navigate = useNavigate()
   const { data, refetch } = useQuery({
     queryKey: ["cart"],
@@ -94,7 +97,16 @@ export default function CartPages() {
     if (!data?.data) return
     setCartData(data.data?.cart)
   }, [data])
-
+  const totalPrice = cartData.reduce(
+    (acc, currItem) => {
+      const priceItem =
+        (currItem._price - currItem._discount) *
+        currItem.quantity
+      acc += priceItem
+      return acc
+    },
+    0,
+  )
   return (
     <div className="px-16 pt-10">
       <ToastContainer />
@@ -137,7 +149,7 @@ export default function CartPages() {
         <span className="font-semibold text-primaryRed">
           Thành tiền :
           <span className="ml-4 text-[24px] font-bold ">
-            {convertToVNPrice(0)}
+            {convertToVNPrice(totalPrice)}
           </span>
         </span>
         <span className="text-gray-500">
@@ -145,9 +157,10 @@ export default function CartPages() {
         </span>
         <button
           className="rounded-[20px] bg-primaryRed px-8 py-2 font-bold text-primaryYellow duration-150 hover:bg-primaryYellow hover:text-primaryRed"
-          onClick={() =>
+          onClick={() => {
             navigate(PathRouter.SHIPPING)
-          }
+            setProducts(cartData)
+          }}
         >
           THANH TOÁN
         </button>

@@ -35,3 +35,10 @@ export const changePassword = async (data: {
 
   return res
 }
+
+export const getPurchases = async () => {
+  const res = await axiosInstance.get(
+    "/profile/purchases",
+  )
+  return res
+}
