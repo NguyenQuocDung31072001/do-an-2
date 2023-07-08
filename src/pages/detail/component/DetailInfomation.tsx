@@ -9,7 +9,6 @@ export default function DetailInfomation() {
     queryKey: ["product preview"],
     queryFn: () => getProductReview(id || ""),
   })
-  console.log({ data })
 
   return (
     <div className="mt-8 rounded-[10px] bg-white p-8">

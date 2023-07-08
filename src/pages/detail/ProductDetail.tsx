@@ -11,11 +11,13 @@ import { ProductType } from "../../types"
 
 export default function ProductDetail() {
   const { id } = useParams()
-  const { data } = useQuery({
-    queryKey: ["product detail"],
-    queryFn: () => getProductById(id || ""),
-    enabled: true,
-  })
+
+  const { data, refetch: getProductDetail } =
+    useQuery({
+      queryKey: ["product_detail"],
+      queryFn: () => getProductById(id || ""),
+      enabled: false,
+    })
   const productFormat = formatProductResponse(
     data?.data?.product,
   )
@@ -25,10 +27,11 @@ export default function ProductDetail() {
         return formatProductResponse(_product)
       },
     )
-
   React.useEffect(() => {
     window.scrollTo(0, 0)
-  }, [])
+    getProductDetail()
+  }, [id])
+
   return (
     <div className="bg-primaryRed px-16 py-8">
       <ProductInfo product={productFormat} />

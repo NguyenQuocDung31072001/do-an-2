@@ -8,15 +8,15 @@ export default function ProductInfo({
   product,
 }: IPropsProductInfo) {
   return (
-    <div className=" flex items-center justify-between">
-      <div className="w-[50%] overflow-hidden">
+    <div className="min-w-[1000px grid  grid-cols-2">
+      <div className="col-span-1 flex min-w-[500px] items-center overflow-hidden">
         <img
           src={product.featuredImage}
           alt=""
           className="cursor-pointer object-cover duration-200 hover:scale-110"
         />
       </div>
-      <div className="h-[460px] w-[50%] bg-white p-8">
+      <div className="col-span-1 h-[460px] min-w-[500px] bg-white p-8">
         <ProductDetailInfo product={product} />
       </div>
     </div>
