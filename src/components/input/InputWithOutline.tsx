@@ -23,7 +23,7 @@ export default function InputWithOutline({
       <label
         className={`absolute top-4 left-3 text-sm transition-all duration-300 ${
           isFocused || value
-            ? "-mt-3 text-[12px] text-gray-500"
+            ? "-mt-3 text-[12px] text-gray-400"
             : "text-[18px] text-black"
         }`}
         htmlFor="name"

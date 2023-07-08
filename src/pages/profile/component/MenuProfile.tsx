@@ -30,6 +30,7 @@ export default function MenuProfile() {
     link: string,
   ) => (
     <NavLink
+      key={label + link}
       to={link}
       end
       className={({ isActive, isPending }) => {

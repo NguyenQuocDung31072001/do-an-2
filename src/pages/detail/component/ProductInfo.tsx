@@ -1,4 +1,3 @@
-import ProductImage from "../../../assets/intro-1.jpg"
 import { ProductType } from "../../../types"
 import ProductDetailInfo from "./ProductDetailInfo"
 
@@ -12,7 +11,7 @@ export default function ProductInfo({
     <div className=" flex items-center justify-between">
       <div className="w-[50%] overflow-hidden">
         <img
-          src={ProductImage}
+          src={product.featuredImage}
           alt=""
           className="cursor-pointer object-cover duration-200 hover:scale-110"
         />

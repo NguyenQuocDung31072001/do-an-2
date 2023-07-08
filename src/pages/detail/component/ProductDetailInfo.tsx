@@ -1,17 +1,51 @@
 import React from "react"
-import { ProductMocks } from "../../../mocks/product"
 import ProductRating from "../../../components/ProductRating"
 import { convertToVNPrice } from "../../../utils/string"
 import QuantityProductManegement from "../../../components/quantity/QuantityProductManegement"
 import CartIconFilled from "../../../icon/CartIconFilled"
-import { ProductType } from "../../../types"
 import { IPropsProductInfo } from "./ProductInfo"
+import { useMutation } from "react-query"
+import { addToCart } from "../../../services/cart"
+import {
+  ToastContainer,
+  toast,
+} from "react-toastify"
 
 export default function ProductDetailInfo({
   product,
 }: IPropsProductInfo) {
+  const { mutateAsync: addToCartMutation } =
+    useMutation({
+      mutationKey: ["add_to_cart"],
+      mutationFn: addToCart,
+    })
+  const handleAddToCart = () => {
+    addToCartMutation({
+      productId: product.id,
+      quantity: "1",
+    })
+      .then((res) => {
+        console.log({ res })
+        toast.success(
+          `${product.name} đã được thêm vào giỏ hàng!`,
+          {
+            pauseOnHover: false,
+          },
+        )
+      })
+      .catch((e) => {
+        console.log({ e })
+        toast.error(
+          `Có lỗi xảy ra khi thêm ${product.name} vào giỏ hàng`,
+          {
+            pauseOnHover: false,
+          },
+        )
+      })
+  }
   return (
     <div>
+      <ToastContainer />
       <p className="font-serif text-[36px] font-bold">
         {product.name}
       </p>
@@ -51,7 +85,10 @@ export default function ProductDetailInfo({
         {product.description}
       </p>
       <QuantityProductManegement />
-      <div className="my-8 flex w-full cursor-pointer items-center justify-center rounded-[50px] bg-primaryRed py-2 font-bold text-primaryYellow duration-300 hover:bg-primaryYellow hover:text-primaryRed">
+      <div
+        className="my-8 flex w-full cursor-pointer items-center justify-center rounded-[50px] bg-primaryRed py-2 font-bold text-primaryYellow duration-300 hover:bg-primaryYellow hover:text-primaryRed"
+        onClick={handleAddToCart}
+      >
         <CartIconFilled className="mr-2 h-6 w-6" />
         THÊM VÀO GIỎ HÀNG
       </div>

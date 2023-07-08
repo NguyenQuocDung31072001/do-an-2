@@ -2,15 +2,24 @@ import React from "react"
 import useClickOutside from "../../../hook/useClickOutside"
 import { useNavigate } from "react-router-dom"
 import { PathRouter } from "../../../constant/path.router"
+import { useQuery } from "react-query"
+import { logoutServices } from "../../../services/auth"
 
 export default function UserIcon() {
   const [open, setOpen] =
     React.useState<boolean>(false)
   const navigate = useNavigate()
 
+  const { data, refetch: logoutApi } = useQuery({
+    queryKey: ["logout"],
+    queryFn: logoutServices,
+    enabled: false,
+  })
+
   const handleLogout = () => {
     window.localStorage.removeItem("email")
     navigate(PathRouter.LOGIN)
+    logoutApi()
   }
 
   const { element } = useClickOutside({

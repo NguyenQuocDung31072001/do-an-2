@@ -1,6 +1,7 @@
 import React from "react"
 import MenuProfile from "./component/MenuProfile"
 import { Outlet } from "react-router-dom"
+
 export default function ProfilePages() {
   return (
     <div className="mx-16 grid grid-cols-12 pt-16">
