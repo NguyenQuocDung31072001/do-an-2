@@ -1,10 +1,146 @@
 import React from "react"
 import ProductRating from "../../../components/ProductRating"
 import Pagination from "../../../components/pagination/Pagination"
+import {
+  useMutation,
+  useQuery,
+} from "react-query"
+import { getPurchases } from "../../../services/profile"
+import { useParams } from "react-router-dom"
+import useModalCommon from "../../../hook/useModalCommon"
+import RatingCommon from "../../../components/rating/RatingCommon"
+import TextAreaWithOutline from "../../../components/input/css/TextAreaWithOutline"
+import { postProductPreview } from "../../../services/review"
+import {
+  ToastContainer,
+  toast,
+} from "react-toastify"
 
 export default function CommentAndRating() {
+  const { id } = useParams()
+  const {
+    setOpen: setOpenModalWarning,
+    renderModal: renderModalWarning,
+  } = useModalCommon()
+
+  const {
+    setOpen: setOpenModalReview,
+    renderModal: renderModalReview,
+  } = useModalCommon()
+
+  const [content, setContent] =
+    React.useState<string>("")
+  const [rating, setRating] =
+    React.useState<number>(1)
+
+  const { data } = useQuery({
+    queryKey: ["get_purchase_for_review"],
+    queryFn: getPurchases,
+  })
+  const {
+    mutateAsync: postProductPreviewMutation,
+  } = useMutation({
+    mutationKey: ["product_preview"],
+    mutationFn: postProductPreview,
+  })
+  const listProductUserPurchase: string[] =
+    data?.data?.purchases
+      ?.reduce((acc: string[], currItem: any) => {
+        acc = [
+          ...acc,
+          ...(currItem?.products?.map(
+            (product: any) => product.productId,
+          ) || []),
+        ]
+        return acc
+      }, [])
+      ?.filter(
+        (
+          item: string,
+          index: number,
+          self: string[],
+        ) =>
+          index ===
+          self.findIndex(
+            (_self) => _self === item,
+          ),
+      )
+
+  const isPurchase =
+    listProductUserPurchase?.includes(id || "")
+
+  const handleClickReview = () => {
+    if (!isPurchase) {
+      setOpenModalWarning(true)
+      return
+    }
+    setOpenModalReview(true)
+  }
+
+  const handleReviewProduct = () => {
+    if (!id) return
+
+    postProductPreviewMutation({
+      productId: id,
+      content: content,
+      rating: rating,
+    })
+      .then((res) => {
+        toast.success(
+          `Bạn đã đánh giá thành công, đánh giá của bạn sẽ được admin phê duyệt!`,
+        )
+      })
+      .catch((e) => {
+        toast.error(e.response.data.message)
+      })
+  }
   return (
     <div className="mt-8 bg-white p-8">
+      <ToastContainer />
+      {renderModalWarning({
+        title: "Thông báo",
+        content:
+          "Bạn không thể nhận xét vì chưa mua sản phẩm này.",
+        footer: "",
+        okText: (
+          <div
+            className="cursor-pointer font-bold text-blue-400"
+            onClick={() =>
+              setOpenModalWarning(false)
+            }
+          >
+            OK
+          </div>
+        ),
+      })}
+      {renderModalReview({
+        title: (
+          <div className="text-[18px]">
+            Nhận xét sản phẩm
+          </div>
+        ),
+        content: (
+          <div className="flex flex-col items-center justify-center">
+            <RatingCommon
+              rating={rating}
+              setRating={setRating}
+            />
+            <div className="h-4 w-full"></div>
+            <TextAreaWithOutline
+              content={content}
+              setContent={setContent}
+            />
+          </div>
+        ),
+        footer: (
+          <button
+            className="flex w-full justify-center rounded-[10px] bg-primaryRed/90 py-2 text-white duration-150 hover:bg-primaryRed"
+            onClick={handleReviewProduct}
+          >
+            Gửi nhận xét
+          </button>
+        ),
+      })}
       <p className="mb-2 font-serif text-[24px] font-bold text-primaryRed">
         Khách hàng nhận xét
       </p>
@@ -62,8 +198,11 @@ export default function CommentAndRating() {
           <p className="font-semibold text-black">
             Nhận xét sản phẩm
           </p>
-          <div className="my-2 flex w-[200px] cursor-pointer items-center justify-center rounded-[50px] bg-primaryRed px-4 py-2 font-bold text-primaryYellow duration-300 hover:bg-primaryYellow hover:text-primaryRed">
-            VIẾT NHẬN XÉT{" "}
+          <div
+            className="my-2 flex w-[200px] cursor-pointer items-center justify-center rounded-[50px] bg-primaryRed px-4 py-2 font-bold text-primaryYellow duration-300 hover:bg-primaryYellow hover:text-primaryRed"
+            onClick={handleClickReview}
+          >
+            VIẾT NHẬN XÉT
           </div>
         </div>
       </div>
