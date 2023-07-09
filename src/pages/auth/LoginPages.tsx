@@ -8,6 +8,10 @@ import {
 import { PathRouter } from "../../constant/path.router"
 import { useMutation } from "react-query"
 import { loginServices } from "../../services/auth"
+import {
+  ToastContainer,
+  toast,
+} from "react-toastify"
 
 export default function LoginPages() {
   const [email, setEmail] = React.useState("")
@@ -39,28 +43,40 @@ export default function LoginPages() {
     loginApi({
       email: email,
       password: password,
-    }).then((res) => {
-      if (!res?.data?._id) return
-      window.localStorage.setItem(
-        "email",
-        res?.data?.email,
-      )
-      if (checkedRemember) {
-        window.localStorage.setItem(
-          "account",
-          JSON.stringify({
-            email: res?.data?.email,
-          }),
-        )
-        navigate(PathRouter.HOME)
-      } else {
-        window.localStorage.removeItem("account")
-        navigate(PathRouter.HOME)
-      }
     })
+      .then((res) => {
+        if (!res?.data?._id) return
+        toast.success(
+          "Bạn đã đăng nhập thành công!",
+        )
+        window.localStorage.setItem(
+          "email",
+          res?.data?.email,
+        )
+        if (checkedRemember) {
+          window.localStorage.setItem(
+            "account",
+            JSON.stringify({
+              email: res?.data?.email,
+            }),
+          )
+          navigate(PathRouter.HOME)
+        } else {
+          window.localStorage.removeItem(
+            "account",
+          )
+          navigate(PathRouter.HOME)
+        }
+      })
+      .catch((e) => {
+        toast.error(
+          e.response.data.message.message,
+        )
+      })
   }
   return (
     <div className="flex w-full items-center justify-center bg-gray-100">
+      <ToastContainer />
       <div className="my-16 flex w-[50%] flex-col items-center justify-center rounded-[2px] bg-white p-8 shadow-sm">
         <div className="w-full ">
           <p className="font-serif text-[24px] font-bold text-primaryRed">

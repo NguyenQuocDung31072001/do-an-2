@@ -7,6 +7,10 @@ import {
 import { PathRouter } from "../../constant/path.router"
 import { useMutation } from "react-query"
 import { registerServices } from "../../services/auth"
+import {
+  ToastContainer,
+  toast,
+} from "react-toastify"
 
 export default function RegisterPages() {
   const [name, setName] = React.useState("")
@@ -30,21 +34,34 @@ export default function RegisterPages() {
       !email ||
       !password ||
       !confirmPassword
-    )
+    ) {
+      toast.error(
+        "Vui lòng nhập đầy đủ các filed !",
+      )
       return
+    }
 
     registerApi({
       fullName: name,
       email: email,
       password: password,
       passwordConfirmation: confirmPassword,
-    }).then((res) => {
-      console.log({ res })
-      navigate(PathRouter.LOGIN)
     })
+      .then((res) => {
+        toast.success(
+          "Bạn đã đăng kí tài khoản thành công!",
+        )
+        navigate(PathRouter.LOGIN)
+      })
+      .catch((e) => {
+        toast.error(
+          e?.response?.data?.message?.message,
+        )
+      })
   }
   return (
     <div className="flex w-full items-center justify-center bg-gray-100">
+      <ToastContainer />
       <div className="my-16 flex w-[50%] flex-col items-center justify-center rounded-[2px] bg-white p-8 shadow-sm">
         <div className=" w-full">
           <p className="font-serif text-[24px] font-bold text-primaryRed">
