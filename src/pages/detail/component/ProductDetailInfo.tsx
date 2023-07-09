@@ -14,18 +14,29 @@ import {
 export default function ProductDetailInfo({
   product,
 }: IPropsProductInfo) {
+  const [quantityChoosed, setQuantityChoosed] =
+    React.useState<number>(1)
+
   const { mutateAsync: addToCartMutation } =
     useMutation({
       mutationKey: ["add_to_cart"],
       mutationFn: addToCart,
     })
   const handleAddToCart = () => {
+    if (quantityChoosed < 1) {
+      toast.error(
+        "Vui lòng chọn số lượng sản phẩm!",
+        {
+          pauseOnHover: false,
+        },
+      )
+      return
+    }
     addToCartMutation({
       productId: product.id,
-      quantity: "1",
+      quantity: quantityChoosed.toString(),
     })
       .then((res) => {
-        console.log({ res })
         toast.success(
           `${product.name} đã được thêm vào giỏ hàng!`,
           {
@@ -34,7 +45,6 @@ export default function ProductDetailInfo({
         )
       })
       .catch((e) => {
-        console.log({ e })
         toast.error(
           `Có lỗi xảy ra khi thêm ${product.name} vào giỏ hàng`,
           {
@@ -84,7 +94,10 @@ export default function ProductDetailInfo({
       <p className="mb-4 px-2 text-[16px] text-black line-clamp-3">
         {product.description}
       </p>
-      <QuantityProductManegement />
+      <QuantityProductManegement
+        quantityChoosed={quantityChoosed}
+        setQuantityChoosed={setQuantityChoosed}
+      />
       <div
         className="my-8 flex w-full cursor-pointer items-center justify-center rounded-[50px] bg-primaryRed py-2 font-bold text-primaryYellow duration-300 hover:bg-primaryYellow hover:text-primaryRed"
         onClick={handleAddToCart}

@@ -1,9 +1,15 @@
 import React from "react"
 
-export default function InputBasic() {
-  const [value, setValue] =
-    React.useState<number>(0)
-
+interface IProps {
+  value: number
+  setValue: React.Dispatch<
+    React.SetStateAction<number>
+  >
+}
+export default function InputBasic({
+  value,
+  setValue,
+}: IProps) {
   const handleOnChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
