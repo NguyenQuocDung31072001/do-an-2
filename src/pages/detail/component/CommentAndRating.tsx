@@ -1,6 +1,5 @@
 import React from "react"
 import ProductRating from "../../../components/ProductRating"
-import Pagination from "../../../components/pagination/Pagination"
 import {
   useMutation,
   useQuery,
@@ -15,6 +14,8 @@ import {
   ToastContainer,
   toast,
 } from "react-toastify"
+import { getProductReview } from "../../../services/product"
+import dayjs from "dayjs"
 
 export default function CommentAndRating() {
   const { id } = useParams()
@@ -37,6 +38,11 @@ export default function CommentAndRating() {
     queryKey: ["get_purchase_for_review"],
     queryFn: getPurchases,
   })
+  const { data: dataReview } = useQuery({
+    queryKey: "",
+    queryFn: () => getProductReview(id || ""),
+  })
+  const reviewData = dataReview?.data?.docs
   const {
     mutateAsync: postProductPreviewMutation,
   } = useMutation({
@@ -206,13 +212,64 @@ export default function CommentAndRating() {
           </div>
         </div>
       </div>
-      <div className="mx-2 mt-4 flex rounded-[10px] bg-[#fff3cd] p-4 text-[#664d03]">
-        Chưa có đánh giá nào cho sản phẩm này.
-      </div>
+      {reviewData && reviewData.length > 0 ? (
+        <div className="my-4">
+          {reviewData.map((_reviewData: any) => {
+            return (
+              <div key={_reviewData._id}>
+                <div className="my-2 flex">
+                  <img
+                    src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"
+                    alt=""
+                    className="h-10 w-10 object-cover"
+                  />
+                  <div className="ml-4">
+                    <span className="font-medium">
+                      {
+                        _reviewData?.ownerId
+                          ?.fullName
+                      }
+                    </span>
+                    <div className="flex items-center">
+                      <ProductRating
+                        rating={
+                          _reviewData?.rating
+                        }
+                        activeClassname="h-5 w-5 fill-yellow-300 text-yellow-300"
+                        nonActiveClassname="h-5 w-5 fill-current text-gray-300"
+                      />
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/5610/5610944.png"
+                        className="ml-8 mr-2 h-4 w-4"
+                      />
+                      <span className="text-green-500">
+                        Đã mua hàng
+                      </span>
+                    </div>
+                    <div className="mt-4 rounded-[10px] bg-gray-100 p-2">
+                      <span className="text-gray-700">
+                        {_reviewData.content}
+                      </span>
+                    </div>
+                    <span className="text-[12px] text-gray-400">
+                      {dayjs(
+                        _reviewData?.createdAt?.split(
+                          "T",
+                        )[0],
+                      ).format("DD/MM/YYYY")}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      ) : (
+        <div className="mx-2 mt-4 flex rounded-[10px] bg-[#fff3cd] p-4 text-[#664d03]">
+          Chưa có đánh giá nào cho sản phẩm này.
+        </div>
+      )}
       <div className="my-8 h-[1px] w-full bg-gray-200" />
-      {/* <div className="flex w-full justify-center">
-        <Pagination total={3} />
-      </div> */}
     </div>
   )
 }
