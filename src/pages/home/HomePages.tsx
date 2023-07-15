@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom"
 import { ProductMocks } from "../../mocks/product"
 import ProductList from "../../components/product/ProductList"
 import { PathRouter } from "../../constant/path.router"
-import ModalFade from "../../components/modal/ModalSearch"
+import { useQuery } from "react-query"
+import { getAllProduct } from "../../services/product"
+import { ProductType } from "../../types"
+import { formatProductResponse } from "../../utils/product/formatProductResponses"
 
 export default function HomePages() {
   const productRef =
@@ -15,9 +18,22 @@ export default function HomePages() {
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+  const { data } = useQuery({
+    queryKey: ["product_dashboard"],
+    queryFn: () => getAllProduct(),
+    refetchOnWindowFocus: false,
+  })
+
+  const products = data?.data?.products
+  const productFormats: ProductType[] =
+    React.useMemo(() => {
+      return products?.map((product: any) => {
+        return formatProductResponse(product)
+      })
+    }, [products])
+
   return (
     <div className="flex flex-col items-center bg-gray-100/50">
-      <ModalFade />
       <div className="mb-8 flex w-full flex-col items-center">
         <div className="flex h-[600px] w-[100%] flex-col items-center justify-center bg-hero bg-cover">
           <p className="font-serif text-[64px] font-bold text-primaryRed">
@@ -98,7 +114,7 @@ export default function HomePages() {
               <div className="z-0 h-[20px] w-full translate-y-[-20px] bg-red-800/50"></div>
             </div>
             <div className="flex flex-wrap justify-between">
-              {ProductMocks.map(
+              {productFormats?.map(
                 (product, index) => (
                   <ProductList
                     key={index}

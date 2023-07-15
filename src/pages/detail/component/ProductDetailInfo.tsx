@@ -84,9 +84,10 @@ export default function ProductDetailInfo({
             product.price - product.discount,
           )}
         </p>
-        <p className="pl-4 text-[24px] text-gray-500">{`-${
-          (product.discount / product.price) * 100
-        }%`}</p>
+        <p className="pl-4 text-[24px] text-gray-500">{`-${(
+          (product.discount / product.price) *
+          100
+        ).toFixed(2)}%`}</p>
       </div>
       <p className="px-2 text-[18px] text-gray-400 line-through">
         {convertToVNPrice(product.price)}
