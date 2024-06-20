@@ -27,7 +27,7 @@ export default function FormAuth() {
           setValue={setPassword}
         />
         <div className="mt-4 mb-2 flex w-full items-center justify-between">
-          <DefaultCheckbox />
+          <DefaultCheckbox checkedRemember />
           <p>Quên mật khẩu?</p>
         </div>
         <button className="mb-4 w-full rounded-[10px] bg-primaryRed/90 py-2 text-white duration-300 hover:bg-primaryRed">

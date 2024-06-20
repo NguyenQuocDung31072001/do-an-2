@@ -14,6 +14,10 @@ export default function usePagination({
   totalPages,
 }: IPropsUsePagination) {
   const renderPagination = (
-    <Pagination total={totalPages} />
+    <Pagination
+      page={page}
+      setPage={setPage}
+      total={totalPages}
+    />
   )
 }
