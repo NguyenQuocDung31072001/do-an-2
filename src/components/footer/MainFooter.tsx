@@ -37,7 +37,7 @@ export default function MainFooter() {
             clipRule="evenodd"
           />
         </svg>
-        <p className="ml-6 p-0">0945 094 870</p>
+        <p className="ml-6 p-0">0373110228</p>
       </div>
       <div className="flex items-center py-2">
         <svg
@@ -54,7 +54,7 @@ export default function MainFooter() {
         </svg>
 
         <p className="ml-6 p-0">
-          https://www.linkedin.com/in/phuchoang2411/
+          https://www.linkedin.com/in/dungnguyen317/
         </p>
       </div>
       <div className="flex items-center py-2">

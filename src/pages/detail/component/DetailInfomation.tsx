@@ -60,13 +60,12 @@ export default function DetailInfomation() {
       <div className="my-4">
         <p className="mb-2">
           Sản phẩm của Công Ty TNHH MTV Yến Sào
-          DamiNest
         </p>
         <p>
-          Địa chỉ : KTX Khu B - ĐHQG HCM, Linh
+          Địa chỉ : KTX Khu A - ĐHQG HCM, Linh
           Trung, Thủ Đức, HCM
         </p>
-        <p>Hotline : 0945 094 870</p>
+        <p>Hotline : 0373110228</p>
       </div>
       <div className="h-[1px] w-full bg-gray-200" />
       <div className="mt-8 flex items-center justify-between">

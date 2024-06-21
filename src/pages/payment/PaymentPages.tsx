@@ -80,7 +80,7 @@ export default function PaymentPages() {
               <p className="font-medium">
                 Điện thoại
               </p>
-              <p>0945094870</p>
+              <p>0373110228</p>
             </div>
             <div className="mb-2 flex items-center justify-between">
               <p className="font-medium">Email</p>
