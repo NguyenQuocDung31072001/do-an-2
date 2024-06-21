@@ -10,7 +10,7 @@ export const loginServices = async (
   const res = await axiosInstance.post(
     "auth/login",
     {
-      email: "phuchoang2411@gmail.com",
+      email: "dungnguyen310701@gmail.com",
       password: "1234567",
     },
   )

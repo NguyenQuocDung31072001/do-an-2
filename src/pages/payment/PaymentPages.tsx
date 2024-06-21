@@ -74,7 +74,7 @@ export default function PaymentPages() {
               <p className="font-medium">
                 Họ tên
               </p>
-              <p>Phúc Hoàng</p>
+              <p>Dung nguyen</p>
             </div>
             <div className="mb-2 flex items-center justify-between">
               <p className="font-medium">
@@ -84,7 +84,7 @@ export default function PaymentPages() {
             </div>
             <div className="mb-2 flex items-center justify-between">
               <p className="font-medium">Email</p>
-              <p>phuchoang2411@gmail.com</p>
+              <p>dungnguyen310701@gmail.com</p>
             </div>
             <div className="mb-2 flex items-center justify-between">
               <p className="font-medium">

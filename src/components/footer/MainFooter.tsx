@@ -68,7 +68,7 @@ export default function MainFooter() {
           <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
         </svg>
         <p className="ml-6 p-0">
-          phuchoang2411@gmail.com
+          dungnguyen310701@gmail.com
         </p>
       </div>
       {/* <div className="h-[1px] w-full bg-gray-300"></div> */}
