@@ -6,7 +6,7 @@ import { PathRouter } from "../../constant/path.router"
 import { ProductType } from "../../types"
 
 interface IProps {
-  product: ProductType
+  product: any
 }
 export default function ProductList({
   product,

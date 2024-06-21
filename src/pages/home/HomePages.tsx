@@ -8,6 +8,7 @@ import { PathRouter } from "../../constant/path.router"
 import ModalFade from "../../components/modal/ModalSearch"
 
 export default function HomePages() {
+  const [open, setOpen] = React.useState(false)
   const productRef =
     React.useRef<HTMLDivElement>(null)
 
@@ -17,7 +18,7 @@ export default function HomePages() {
   }, [])
   return (
     <div className="flex flex-col items-center bg-gray-100/50">
-      <ModalFade />
+      <ModalFade open={open} setOpen={setOpen} />
       <div className="mb-8 flex w-full flex-col items-center">
         <div className="flex h-[600px] w-[100%] flex-col items-center justify-center bg-hero bg-cover">
           <p className="font-serif text-[64px] font-bold text-primaryRed">
