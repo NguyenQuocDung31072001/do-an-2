@@ -25,7 +25,15 @@ export default function UserIcon() {
             >
               Quản lý tài khoản
             </li>
-            <li className="cursor-pointer px-2 duration-200 hover:bg-gray-100">
+            <li
+              className="cursor-pointer px-2 duration-200 hover:bg-gray-100"
+              onClick={() => {
+                navigate(PathRouter.LOGIN)
+                window.localStorage.removeItem(
+                  "user",
+                )
+              }}
+            >
               Đăng xuất
             </li>
           </ul>

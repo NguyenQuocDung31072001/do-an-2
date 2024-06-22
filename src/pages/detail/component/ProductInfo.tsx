@@ -3,7 +3,7 @@ import { ProductType } from "../../../types"
 import ProductDetailInfo from "./ProductDetailInfo"
 
 export interface IPropsProductInfo {
-  product: ProductType
+  product?: ProductType
 }
 export default function ProductInfo({
   product,

@@ -11,6 +11,7 @@ export default function LoginPages() {
 
   const handleLogin = () => {
     window.localStorage.setItem("user", "user")
+    window.location.href = PathRouter.HOME
   }
   return (
     <div className="flex w-full items-center justify-center bg-gray-100">

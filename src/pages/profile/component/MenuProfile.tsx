@@ -19,10 +19,10 @@ const options = [
       "/",
     )[2],
   },
-  {
-    label: "Đăng xuất",
-    link: PathRouter.LOGOUT,
-  },
+  // {
+  //   label: "Đăng xuất",
+  //   link: PathRouter.LOGOUT,
+  // },
 ]
 export default function MenuProfile() {
   const renderNavLinkWithStyle = (

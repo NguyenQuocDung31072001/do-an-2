@@ -1,5 +1,4 @@
 import React from "react"
-import { PRODUCT_CATEGORIES } from "../../../constant/product.category"
 import {
   useMotionValueEvent,
   useScroll,

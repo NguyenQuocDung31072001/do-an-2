@@ -8,23 +8,22 @@ import { useQuery } from "react-query"
 import { getProductById } from "../../services/product"
 import { formatProductResponse } from "../../utils/product/formatProductResponses"
 import { ProductType } from "../../types"
+import { ProductMocks } from "../../mocks/product"
 
 export default function ProductDetail() {
   const { id } = useParams()
-  const { data } = useQuery({
-    queryKey: ["product detail"],
-    queryFn: () => getProductById(id || ""),
-    enabled: true,
-  })
-  const productFormat = formatProductResponse(
-    data?.data?.product,
+  // const { data } = useQuery({
+  //   queryKey: ["product detail"],
+  //   queryFn: () => getProductById(id || ""),
+  //   enabled: true,
+  // })
+  const productFormat = ProductMocks.find(
+    (item) =>
+      item.id?.toString() === id?.toString(),
   )
+
   const productRelatedFormat: ProductType[] =
-    data?.data?.relatedProducts?.map(
-      (_product: any) => {
-        return formatProductResponse(_product)
-      },
-    )
+    ProductMocks
 
   React.useEffect(() => {
     window.scrollTo(0, 0)

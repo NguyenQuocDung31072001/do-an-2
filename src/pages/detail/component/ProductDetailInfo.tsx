@@ -6,10 +6,16 @@ import QuantityProductManegement from "../../../components/quantity/QuantityProd
 import CartIconFilled from "../../../icon/CartIconFilled"
 import { ProductType } from "../../../types"
 import { IPropsProductInfo } from "./ProductInfo"
+import { useNavigate } from "react-router-dom"
+import { PathRouter } from "../../../constant/path.router"
 
 export default function ProductDetailInfo({
   product,
 }: IPropsProductInfo) {
+  const navigate = useNavigate()
+
+  if (!product)
+    return <div>Product không tồn tại</div>
   return (
     <div>
       <p className="font-serif text-[36px] font-bold">
@@ -51,7 +57,12 @@ export default function ProductDetailInfo({
         {product.description}
       </p>
       <QuantityProductManegement />
-      <div className="my-8 flex w-full cursor-pointer items-center justify-center rounded-[50px] bg-primaryRed py-2 font-bold text-primaryYellow duration-300 hover:bg-primaryYellow hover:text-primaryRed">
+      <div
+        onClick={() => {
+          navigate(`${PathRouter.CART}`)
+        }}
+        className="my-8 flex w-full cursor-pointer items-center justify-center rounded-[50px] bg-primaryRed py-2 font-bold text-primaryYellow duration-300 hover:bg-primaryYellow hover:text-primaryRed"
+      >
         <CartIconFilled className="mr-2 h-6 w-6" />
         THÊM VÀO GIỎ HÀNG
       </div>

@@ -19,6 +19,7 @@ import {
 } from "react-router-dom"
 import usePagination from "../../hook/usePagination"
 import { formatProductResponse } from "../../utils/product/formatProductResponses"
+import { MockCategory } from "../../mocks/categories"
 
 export default function ProductPages() {
   const ref = React.useRef<HTMLDivElement>(null)
@@ -40,27 +41,11 @@ export default function ProductPages() {
     refetchOnWindowFocus: false,
   })
 
-  const categories = data?.data?.categories
-  const products = data?.data?.products
-
   const categoryFormat: CategoryType[] =
-    React.useMemo(() => {
-      return categories
-        ?.filter((categoryItem: any) =>
-          Boolean(categoryItem?.name),
-        )
-        ?.map((categoryItem: any) => ({
-          id: categoryItem._id,
-          name: categoryItem.name,
-        }))
-    }, [categories])
+    MockCategory
 
   const productFormats: ProductType[] =
-    React.useMemo(() => {
-      return products?.map((product: any) => {
-        return formatProductResponse(product)
-      })
-    }, [products])
+    ProductMocks
 
   const queryParams = new URLSearchParams(
     location.search,

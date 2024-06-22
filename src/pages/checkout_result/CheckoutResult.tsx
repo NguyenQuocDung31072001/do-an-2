@@ -51,7 +51,9 @@ export default function CheckoutResult() {
           <button
             className="my-4 flex justify-center rounded-[20px] bg-primaryRed py-2 px-8 font-bold text-primaryYellow duration-300 hover:bg-primaryYellow hover:text-primaryRed"
             onClick={() =>
-              navigate(PathRouter.CHECKOUT_RESULT)
+              navigate(
+                PathRouter.PROFILE_PURCHASES,
+              )
             }
           >
             Xem đơn hàng
